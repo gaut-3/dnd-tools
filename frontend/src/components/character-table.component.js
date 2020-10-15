@@ -6,15 +6,18 @@ import CharacterComponentClassNameModel from "../models/CharacterComponentClassN
 import NPCharacterComponentClassNameModel from "../models/NPCharacterComponentClassNameModel"
 import "../styles/board-character.component.css";
 
-export default class BoardCharacters extends Component {
+export default class CharacterTable extends Component {
+
     constructor(props) {
         super(props);
-        this.tablePlayerCharacter = React.createRef();
-        this.tableNPCharacter = React.createRef();
+        this.tableCharacter = React.createRef();
+        props.characterList.map((character) => {
+                console.log(character.id)
+            return <CharacterItem key={character.id} id={character.id} isNonPlayer={character.nonPlayer}
+                                  characterClassNameModel={this.state.npCharacterClassNames}
+                                  character={character}/>
+        })
         this.state = {
-            content: "",
-            dmCharacterList: null,
-            playerList: null,
             characterClassNames: new CharacterComponentClassNameModel(),
             npCharacterClassNames: new NPCharacterComponentClassNameModel(),
         };
@@ -82,7 +85,7 @@ export default class BoardCharacters extends Component {
             <div className="card">
                 <h3 className="card-header text-center font-weight-bold text-uppercase py-4">Characters</h3>
                 <div className="card-body">
-                    <div id="tablePlayerCharacter" className="table-editable table-hover container-fluid">
+                    <div className="table-editable table-hover container-fluid">
                       <span className="table-add float-right mb-3 mr-2">
                           <button className="btn" onClick={() => this.createCharacter(this.tablePlayerCharacter, false)}>
                             Click me!
@@ -102,31 +105,6 @@ export default class BoardCharacters extends Component {
                             </thead>
                             <tbody>
                             {this.state.playerList}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div id="tableNPCharacter" className="table-editable table-hover container-fluid">
-                      <span className="table-add float-right mb-3 mr-2">
-                          <button className="btn" onClick={() => this.createCharacter(this.tableNPCharacter, true)}>
-                            Click me!
-                         </button>
-                          <a href="#!" className="text-success">
-                              <i className="fas fa-plus fa-2x" aria-hidden="true"/>
-                          </a>
-                      </span>
-                        <table ref={this.tableNPCharacter} className={this.state.npCharacterClassNames.table}>
-                            <thead>
-                            <tr className={this.state.npCharacterClassNames.row}>
-                                <th className={this.state.npCharacterClassNames.columnDelete + " text-center"}>?</th>
-                                <th className={this.state.npCharacterClassNames.columnName + " text-center"}>Name</th>
-                                <th className={this.state.npCharacterClassNames.columnRace + " text-center"}>Race</th>
-                                <th className={this.state.npCharacterClassNames.columnArmorClass + " text-center"}>AC</th>
-                                <th className={this.state.npCharacterClassNames.columnHealth + " text-center"}>HP</th>
-                                <th className={this.state.npCharacterClassNames.columnComment + " text-center"}>Comment</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.state.dmCharacterList}
                             </tbody>
                         </table>
                     </div>
