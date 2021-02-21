@@ -1,0 +1,2 @@
+{"_id":{"$oid":"5f7c4fcf850d0117c7f46b3c"},"username":"test","email":"gaut1993@gmail.com","password":"$2a$10$/SyFUFITcthVCJVUayenpOGMpHzBgF8M0HC.P1feQ39DG89hsvu5.","roles":["USER","DM","ADMIN"],"_class":"com.dndtools.api.models.User"}
+{"_id":{"$oid":"5f7c692cc0fc042928f60548"},"username":"test1","email":"gatu1993@gmail.com","password":"$2a$10$OZfsAUUDA9ooF6iqK.8RUu7inBknYFIqkll5pH.q5zL3abTUEwIii","roles":["USER","DM","ADMIN"],"_class":"com.dndtools.api.models.User"}

@@ -1,0 +1,4 @@
+{"_id":{"$oid":"5f882115cb580a1f4c1ceb45"},"userId":"5f7c692cc0fc042928f60548","name":"mor'in","race":"halfelf","armorClass":"13","isNonPlayer":false}
+{"_id":{"$oid":"5f88213ecb580a1f4c1ceb46"},"userId":"5f7c692cc0fc042928f60548","name":"colfindir","race":"halfelf","armorClass":"15","isNonPlayer":false}
+{"_id":{"$oid":"5f88217bcb580a1f4c1ceb47"},"userId":"5f7c692cc0fc042928f60548","name":"soldat 1","race":"human","armorClass":"13","health":"30","isNonPlayer":true}
+{"_id":{"$oid":"5f88218acb580a1f4c1ceb48"},"userId":"5f7c692cc0fc042928f60548","name":"soldat 2","race":"human","armorClass":"13","health":"14","isNonPlayer":true}

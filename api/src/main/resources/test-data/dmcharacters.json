@@ -1,0 +1,1 @@
+{"_id":{"$oid":"5f856bb1cb580a1f4c1ceb44"},"userId":"5f7c692cc0fc042928f60548","playerList":[{"name":"mor'in","race":"halfelf"},{"name":"colfindir","race":"halfelf"}],"dmCharacterList":[{"name":"test","race":"halfelf"},{"name":"soldat elf","race":"halfelf","health":"30","armorClass":"14"}]}
