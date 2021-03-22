@@ -59,9 +59,6 @@ export default class CharacterTable extends Component {
     }
 
     createCharacter(tableNode, isNonPlayer) {
-        console.log(tableNode)
-        const clone = tableNode.find('tbody tr').last().clone(true).removeClass('hide table-line');
-
         if (tableNode.find('tbody tr').length === 0) {
             CharactersService.addNewCharacter().then(
                 response => {
@@ -72,11 +69,9 @@ export default class CharacterTable extends Component {
                                                               isNonPlayer={isNonPlayer} character={data}/>)
                 },
             )
-
-            //$('tbody').append(newTr);
+        } else {
+            const clone = tableNode.find('tbody tr').last().clone(true).removeClass('hide table-line');
         }
-
-        //$tableID.find('table').append($clone);
     }
 
 

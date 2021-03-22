@@ -25,8 +25,19 @@ public class DnDCharacterServiceImpl {
         return dndCharacterRepository.findAllByUserId(currentUserId);
     }
 
-    public DnDCharacter createCharacter(boolean isNonPlayer){
+    public DnDCharacter createCharacter(DnDCharacter dnDCharacter){
         String currentUserId = userDetailsService.getCurrentUserId();
-        return dndCharacterRepository.insert(new DnDCharacter(NEW_CHARACTER_EXAMPLE_NAME, currentUserId, isNonPlayer));
+        dnDCharacter.setName(NEW_CHARACTER_EXAMPLE_NAME);
+        dnDCharacter.setUserId(currentUserId);
+        return dndCharacterRepository.insert(dnDCharacter);
+    }
+
+    public DnDCharacter updateCharacter(DnDCharacter dnDCharacter) {
+        dnDCharacter.setUserId(userDetailsService.getCurrentUserId());
+        return dndCharacterRepository.save(dnDCharacter);
+    }
+
+    public void deleteCharacter(String id) {
+       dndCharacterRepository.deleteById(id);
     }
 }

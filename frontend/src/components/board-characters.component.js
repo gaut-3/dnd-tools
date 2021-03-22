@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-
 import CharactersService from "../services/characters.service";
 import CharacterItem from "../items/character.item";
 import CharacterComponentClassNameModel from "../models/CharacterComponentClassNameModel"
@@ -56,26 +55,22 @@ export default class BoardCharacters extends Component {
     }
 
     createCharacter(tableNode, isNonPlayer) {
-        console.log(tableNode)
-        const clone = tableNode.find('tbody tr').last().clone(true).removeClass('hide table-line');
-
-        if (tableNode.find('tbody tr').length === 0) {
-            CharactersService.addNewCharacter().then(
-                response => {
-                    let data = response.data;
-                    this.state.playerList.push()
-                    this.state.playerList.push(<CharacterItem key={data.id} id={data.id}
-                                                              characterClassNameModel={this.state.characterClassNames}
-                                                              isNonPlayer={isNonPlayer} character={data}/>)
-                },
-            )
-
-            //$('tbody').append(newTr);
-        }
-
-        //$tableID.find('table').append($clone);
+        CharactersService.addNewCharacter(isNonPlayer).then(
+            response => {
+                let data = response.data;
+                this.state.playerList.push()
+                this.state.playerList.push(<CharacterItem key={data.id} id={data.id} handleDelete={this.deleteThisCharacter}
+                                                          characterClassNameModel={this.state.characterClassNames}
+                                                          isNonPlayer={isNonPlayer} character={data}/>)
+            },
+        )
     }
 
+    deleteThisCharacter(id) {
+        let indexOf = this.state.playerList.indexOf(id);
+        CharactersService.deleteCharacter(id);
+        this.state.playerList.splice(indexOf, 1);
+    }
 
     render() {
         return (
@@ -83,14 +78,20 @@ export default class BoardCharacters extends Component {
                 <h3 className="card-header text-center font-weight-bold text-uppercase py-4">Characters</h3>
                 <div className="card-body">
                     <div id="tablePlayerCharacter" className="table-editable table-hover container-fluid">
-                      <span className="table-add float-right mb-3 mr-2">
-                          <button className="btn" onClick={() => this.createCharacter(this.tablePlayerCharacter, false)}>
-                            Click me!
-                         </button>
-                          <a href="#!" className="text-success">
-                              <i className="fas fa-plus fa-2x" aria-hidden="true"/>
-                          </a>
-                      </span>
+                        <span className="table-add float-right mb-3 mr-2">
+                            <button className="btn"
+                                    onClick={() => this.createCharacter(this.tablePlayerCharacter, true)}>
+                                Add new Non Player Character
+                            </button>
+                            <a href="#!" className="text-success">
+                                <i className="fas fa-plus fa-2x" aria-hidden="true"/>
+                            </a>
+                        </span>
+                        <span className="table-add float-right mb-3 mr-2">
+                            <a href="#!" className="text-success">
+                                <i className="fas fa-plus fa-2x" aria-hidden="true"/>
+                            </a>
+                        </span>
                         <table ref={this.tablePlayerCharacter} className={this.state.characterClassNames.table}>
                             <thead>
                             <tr className={this.state.characterClassNames.row}>
@@ -107,8 +108,8 @@ export default class BoardCharacters extends Component {
                     </div>
                     <div id="tableNPCharacter" className="table-editable table-hover container-fluid">
                       <span className="table-add float-right mb-3 mr-2">
-                          <button className="btn" onClick={() => this.createCharacter(this.tableNPCharacter, true)}>
-                            Click me!
+                          <button className="btn" onClick={() => this.createCharacter(this.tableNPCharacter, false)}>
+                            Add new Player Character
                          </button>
                           <a href="#!" className="text-success">
                               <i className="fas fa-plus fa-2x" aria-hidden="true"/>

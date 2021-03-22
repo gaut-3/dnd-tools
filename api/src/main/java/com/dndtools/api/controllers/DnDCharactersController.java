@@ -24,8 +24,19 @@ public class DnDCharactersController {
 
     @PostMapping("/create")
     @PreAuthorize("hasRole('DM')")
-    public DnDCharacter createCharacter(@RequestBody Boolean isNonPlayer) {
-        return dndCharactersService.createCharacter(isNonPlayer);
+    public DnDCharacter createCharacter(@RequestBody DnDCharacter dnDCharacter) {
+        return dndCharactersService.createCharacter(dnDCharacter);
     }
 
+    @PatchMapping("/update")
+    @PreAuthorize("hasRole('DM')")
+    public DnDCharacter updateCharacter(@RequestBody DnDCharacter dnDCharacter) {
+        return dndCharactersService.updateCharacter(dnDCharacter);
+    }
+
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasRole('DM')")
+    public void deleteCharacter(@RequestParam String id) {
+        dndCharactersService.deleteCharacter(id);
+    }
 }
