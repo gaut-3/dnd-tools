@@ -1,6 +1,7 @@
 package com.dndtools.api.models;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.Email;

@@ -1,0 +1,9 @@
+# App Properties
+bezkoder:
+  app:
+    jwtSecret: bezKoderSecretKey
+    jwtExpirationMs: 86400000
+
+server:
+  port: 9091
+

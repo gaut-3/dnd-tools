@@ -1,4 +1,4 @@
-package com.dndtools.api.security.services;
+package com.dndtools.api.services;
 
 import com.dndtools.api.models.User;
 import com.dndtools.api.repository.UserRepository;

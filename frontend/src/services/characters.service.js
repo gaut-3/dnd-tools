@@ -1,17 +1,17 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8080/api/dmcharacters/';
+const API_URL = 'http://localhost:9091/api/dmcharacters/';
 
 class CharactersService {
     getAllCharacters() {
         return axios.get(API_URL + 'all', {headers: authHeader()});
     }
 
-    addNewCharacter(isNonPlayer) {
+    addNewCharacter(isPlayer) {
         return axios.post(API_URL + 'create', {
             "name": "test",
-            "nonPlayer": isNonPlayer
+            "isPlayer": isPlayer
         }, {headers: authHeader()})
     }
 
@@ -19,7 +19,7 @@ class CharactersService {
         return axios.delete(API_URL + 'delete?id=' + id, {headers: authHeader()})
     }
 
-    updateCharacter(id,
+    async updateCharacter(id,
                     nameInput,
                     raceInput,
                     armorClass,

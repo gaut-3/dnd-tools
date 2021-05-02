@@ -2,7 +2,7 @@ package com.dndtools.api.security;
 
 import com.dndtools.api.security.jwt.AuthEntryPointJwt;
 import com.dndtools.api.security.jwt.AuthTokenFilter;
-import com.dndtools.api.security.services.UserDetailsServiceImpl;
+import com.dndtools.api.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

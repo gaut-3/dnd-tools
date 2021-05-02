@@ -20,22 +20,28 @@ export default class BoardCharacters extends Component {
     }
 
     componentDidMount() {
+        this.getAllCharacters();
+    }
+
+    getAllCharacters = () => {
+        console.log("rerender")
         CharactersService.getAllCharacters().then(
             response => {
                 this.setState({
                     content: response.data,
                     dmCharacterList: response.data.map((character) => {
-                        if (character.nonPlayer) {
-                            console.log(character.id)
+                        if (!character.isPlayer) {
                             return <CharacterItem key={character.id} id={character.id} isNonPlayer={true}
+                                                  handleDelete={this.deleteThisCharacter}
                                                   characterClassNameModel={this.state.npCharacterClassNames}
                                                   character={character}/>
                         }
                     }),
                     playerList: response.data.map((character) => {
-                        if (!character.nonPlayer) {
+                        if (character.isPlayer) {
                             return <CharacterItem key={character.id} id={character.id}
                                                   characterClassNameModel={this.state.characterClassNames}
+                                                  handleDelete={this.deleteThisCharacter}
                                                   isNonPlayer={false} character={character}/>
                         }
                     })
@@ -54,23 +60,34 @@ export default class BoardCharacters extends Component {
         );
     }
 
-    createCharacter(tableNode, isNonPlayer) {
-        CharactersService.addNewCharacter(isNonPlayer).then(
+    createCharacter(tableNode, isPlayer) {
+        CharactersService.addNewCharacter(isPlayer).then(
             response => {
                 let data = response.data;
-                this.state.playerList.push()
-                this.state.playerList.push(<CharacterItem key={data.id} id={data.id} handleDelete={this.deleteThisCharacter}
-                                                          characterClassNameModel={this.state.characterClassNames}
-                                                          isNonPlayer={isNonPlayer} character={data}/>)
+                if (isPlayer) {
+                    this.state.playerList.push(<CharacterItem key={data.id} id={data.id}
+                                                              handleDelete={this.deleteThisCharacter}
+                                                              characterClassNameModel={this.state.characterClassNames}
+                                                              isPlayer={true} character={data}/>)
+                } else {
+                    this.state.dmCharacterList.push(<CharacterItem key={data.id} id={data.id}
+                                                                   handleDelete={this.deleteThisCharacter}
+                                                                   characterClassNameModel={this.state.npCharacterClassNames}
+                                                                   isPlayer={false} character={data}/>)
+                }
+
+                this.setState({playerList: this.state.playerList, dmCharacterList: this.state.dmCharacterList});
             },
         )
     }
 
-    deleteThisCharacter(id) {
-        let indexOf = this.state.playerList.indexOf(id);
+    deleteThisCharacter = (id, isPlayer) => {
+        console.log("after " + id);
         CharactersService.deleteCharacter(id);
-        this.state.playerList.splice(indexOf, 1);
+        this.getAllCharacters();
+        this.setState({playerList: this.state.playerList, dmCharacterList: this.state.dmCharacterList});
     }
+
 
     render() {
         return (
@@ -81,7 +98,7 @@ export default class BoardCharacters extends Component {
                         <span className="table-add float-right mb-3 mr-2">
                             <button className="btn"
                                     onClick={() => this.createCharacter(this.tablePlayerCharacter, true)}>
-                                Add new Non Player Character
+                                Add new Player Character
                             </button>
                             <a href="#!" className="text-success">
                                 <i className="fas fa-plus fa-2x" aria-hidden="true"/>
@@ -109,7 +126,7 @@ export default class BoardCharacters extends Component {
                     <div id="tableNPCharacter" className="table-editable table-hover container-fluid">
                       <span className="table-add float-right mb-3 mr-2">
                           <button className="btn" onClick={() => this.createCharacter(this.tableNPCharacter, false)}>
-                            Add new Player Character
+                            Add new Non Player Character
                          </button>
                           <a href="#!" className="text-success">
                               <i className="fas fa-plus fa-2x" aria-hidden="true"/>

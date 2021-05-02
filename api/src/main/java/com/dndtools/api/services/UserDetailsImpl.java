@@ -1,4 +1,4 @@
-package com.dndtools.api.security.services;
+package com.dndtools.api.services;
 
 import java.util.Collection;
 import java.util.List;

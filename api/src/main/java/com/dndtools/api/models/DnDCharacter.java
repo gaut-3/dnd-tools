@@ -23,18 +23,18 @@ public class DnDCharacter {
     private String armorClass;
     private String comment;
 
-    @JsonProperty("nonPlayer")
-    private boolean nonPlayer;
+    @JsonProperty("isPlayer")
+    private boolean isPlayer;
 
     private String userId;
 
-    public DnDCharacter (String name, String userId, boolean nonPlayer) {
+    public DnDCharacter(String name, String userId, boolean isPlayer) {
         this.name = name;
         this.userId = userId;
-        this.nonPlayer = nonPlayer;
+        this.isPlayer = isPlayer;
     }
 
-    public DnDCharacter (String id) {
+    public DnDCharacter(String id) {
         this.id = id;
     }
 }

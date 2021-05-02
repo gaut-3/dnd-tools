@@ -1,6 +1,6 @@
 package com.dndtools.api.security.jwt;
 
-import com.dndtools.api.security.services.UserDetailsImpl;
+import com.dndtools.api.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -8,7 +8,7 @@ import com.dndtools.api.payload.response.JwtResponse;
 import com.dndtools.api.payload.response.MessageResponse;
 import com.dndtools.api.repository.UserRepository;
 import com.dndtools.api.security.jwt.JwtUtils;
-import com.dndtools.api.security.services.UserDetailsImpl;
+import com.dndtools.api.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

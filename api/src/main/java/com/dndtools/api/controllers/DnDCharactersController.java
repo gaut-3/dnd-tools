@@ -1,7 +1,7 @@
 package com.dndtools.api.controllers;
 
 import com.dndtools.api.models.DnDCharacter;
-import com.dndtools.api.security.services.DnDCharacterServiceImpl;
+import com.dndtools.api.services.DnDCharacterServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

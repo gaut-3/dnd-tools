@@ -85,8 +85,8 @@ class App extends Component {
 
             {currentUser && (
                 <li className="nav-item">
-                  <Link to={"/user"} className="nav-link">
-                    User
+                  <Link to={"/turnorder"} className="nav-link">
+                    Turnorder
                   </Link>
                 </li>
             )}

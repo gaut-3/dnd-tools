@@ -1,20 +1,26 @@
-import React from 'react';
+import React, {Component, Fragment} from 'react';
 import CharactersService from "../services/characters.service";
 
-class CharacterItem extends React.Component {
+class CharacterItem extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            isPlayer: this.props.isPlayer,
+            id: this.props.id,
+        }
+    }
 
     updateCharacter() {
-        let isNonPlayer = this.state.isNonPlayer;
         let nameInput = this.nameInput.current.innerHTML;
         let raceInput = this.raceInput.current.innerHTML;
         let armorClass = this.armorClassInput.current.innerHTML;
-        if (isNonPlayer) {
+        if (!this.state.isPlayer) {
             CharactersService.updateCharacter(this.state.id,
                 nameInput,
                 raceInput,
                 armorClass,
-                isNonPlayer,
+                this.state.isPlayer,
                 this.healthInput.current.innerHTML,
                 this.commentInput.current.innerHTML);
         } else {
@@ -22,7 +28,7 @@ class CharacterItem extends React.Component {
                 nameInput,
                 raceInput,
                 armorClass,
-                isNonPlayer, "", "");
+                this.state.isPlayer, "", "");
         }
         /*.then(
             response => {
@@ -35,16 +41,44 @@ class CharacterItem extends React.Component {
             )*/
     }
 
+    renderStandardField = (name, race, armorClass) => {
+        return (
+            <Fragment>
+                <td className={this.props.characterClassNameModel.columnDelete}>
+                    {/*<button onClick={() => this.deleteThisCharacter(this.state.id)}>Delete</button>*/}
+                    <button onClick={() => this.props.handleDelete(this.state.id, this.state.isPlayer)}>Delete</button>
+                    {/* <button className="btn btn-danger"
+                            onClick={() => this.state.handleDelete(this.idField)}>
+                        DEL
+                    </button>*/}
+                </td>
+                <td className={this.props.characterClassNameModel.columnName} contentEditable="true"
+                    ref={this.nameInput}
+                    onInputCapture={() => this.updateCharacter()}>{name}</td>
+                <td className={this.props.characterClassNameModel.columnRace} contentEditable="true"
+                    ref={this.raceInput}
+                    onInputCapture={() => this.updateCharacter()}>{race}</td>
+                <td className={this.props.characterClassNameModel.columnArmorClass} contentEditable="true"
+                    ref={this.armorClassInput} onInputCapture={() => this.updateCharacter()}>{armorClass}</td>
+            </Fragment>
+        );
+    }
+
+    renderNPCFields = (health, comment) => {
+        if (this.state.isPlayer === false) {
+            return (<Fragment>
+                <td className={this.props.characterClassNameModel.columnHealth} contentEditable="true"
+                    ref={this.healthInput}
+                    onInputCapture={() => this.updateCharacter()}>{health}</td>
+                <td className={this.props.characterClassNameModel.columnComment} contentEditable="true"
+                    ref={this.commentInput}
+                    onInputCapture={() => this.updateCharacter()}>{comment}</td>
+            </Fragment>);
+        }
+    }
+
 
     render() {
-        const isNonPlayer = this.props.isNonPlayer;
-        const characterClassNameModel = this.props.characterClassNameModel;
-        const id = this.props.id;
-        this.state = {
-            isNonPlayer: this.props.isNonPlayer,
-            id: this.props.id,
-            handleDelete: this.props.handleDelete
-        }
 
         const {name, race, initative, health, armorClass, comment} = this.props.character;
         this.idField = React.createRef()
@@ -55,40 +89,11 @@ class CharacterItem extends React.Component {
         this.armorClassInput = React.createRef();
         this.commentInput = React.createRef();
         return (
-            <tr id={id} ref={this.idField} className={characterClassNameModel.row}>
-                <td className={characterClassNameModel.columnDelete}>
-                    <Delete
-                        data={this.idField}
-                        handleClick={() => this.props.handleDelete(this.idField)} // Pass the id here
-                    />
-                   {/* <button className="btn btn-danger"
-                            onClick={() => this.state.handleDelete(this.idField)}>
-                        DEL
-                    </button>*/}
-                </td>
-                <td className={characterClassNameModel.columnName} contentEditable="true" ref={this.nameInput}
-                    onInputCapture={() => this.updateCharacter()}>{name}</td>
-                <td className={characterClassNameModel.columnRace} contentEditable="true" ref={this.raceInput}
-                    onInputCapture={() => this.updateCharacter()}>{race}</td>
-                <td className={characterClassNameModel.columnArmorClass} contentEditable="true"
-                    ref={this.armorClassInput} onInputCapture={() => this.updateCharacter()}>{armorClass}</td>
-                {isNonPlayer && [
-                    <td className={characterClassNameModel.columnHealth} contentEditable="true" ref={this.healthInput}
-                        onInputCapture={() => this.updateCharacter()}>{health}</td>,
-                    <td className={characterClassNameModel.columnComment} contentEditable="true" ref={this.commentInput}
-                        onInputCapture={() => this.updateCharacter()}>{comment}</td>]
-                }
+            <tr id={this.state.id} ref={this.idField} className={this.props.characterClassNameModel.row}>
+                {this.renderStandardField(name, race, armorClass)}
+                {this.renderNPCFields(health, comment)}
             </tr>
         )
-    }
-}
-
-class Delete extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        return <button onClick={this.props.handleClick}>Delete</button>;
     }
 }
 

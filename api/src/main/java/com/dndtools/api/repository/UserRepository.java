@@ -2,6 +2,7 @@ package com.dndtools.api.repository;
 
 import java.util.Optional;
 
+import com.dndtools.api.models.TurnOrder;
 import com.dndtools.api.models.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 

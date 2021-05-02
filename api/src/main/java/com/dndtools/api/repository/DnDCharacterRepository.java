@@ -8,6 +8,6 @@ import java.util.List;
 public interface DnDCharacterRepository extends MongoRepository<DnDCharacter, String> {
     List<DnDCharacter> findAllByUserId(String userId);
 
-    List<DnDCharacter> findAllByUserIdAndNonPlayerIs(String userId, boolean isNonPlayer);
+    List<DnDCharacter> findAllByUserIdAndPlayerIs(String userId, boolean isPlayer);
 
 }
