@@ -1,15 +1,22 @@
-import React, {Component} from "react";
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete'
+import React from "react";
+import {Component, Fragment} from "react";
 import UserService from "../services/user.service";
+import CharacterField from "../items/character.field";
 import { withStyles } from '@material-ui/core/styles';
 
 const useStyles = () => ({
-    classTextField: {
-        marginTop: 16, marginBottom: 8
+    marginTextField: {
+        marginTop: 16,
+        marginBottom: 8,
+        marginLeft: 2
     },
+    hp: {
+        width: 70
+    },
+    initative: {
+        width: 70
+    }
 });
-
 
 class BoardTurnOrder extends Component {
 
@@ -18,20 +25,19 @@ class BoardTurnOrder extends Component {
         this.state = {
             content: "",
             newValue: "",
+            characterFields: [],
+            counter: 0
         };
     }
 
 
-    setValue = (value) => {
-        console.log(value);
-    }
+
 
     componentDidMount() {
         UserService.getUserBoard().then(
             response => {
                 this.setState({
                     content: response.data,
-                    value: items[0],
                     setValue: this.setValue
                 });
             },
@@ -48,40 +54,46 @@ class BoardTurnOrder extends Component {
         );
     }
 
+    addNewCharacterField = (isPlayer) => {
+        this.state.counter++;
+        this.state.characterFields.push(<CharacterField isPlayer={isPlayer} counter={this.state.counter} initative={this.initative}/>);
+        this.setState({characterFields: this.state.characterFields});
+    }
+
+    initative = (number) => {
+        console.log(number);
+    }
+
+    sortCharacters = () => {
+        console.log(this.state.characterFields[0].props.initative)
+        //this.state.characterFields[0].showAlert()
+    }
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
+        console.log(this.state.characterFields);
         return (
             <div className="container">
                 <header className="jumbotron">
                     <div>
-                            <Autocomplete
-                                freeSolo
-                                id="free-solo-2-demo"
-                                disableClearable
-                                style={{width: 300, display: "inline-block"}}
-                                onChange={(event, newValue) => {
-                                    this.setValue(newValue);
-                                }}
-                                options={items.map((option) => option.value)}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        label="Search input"
-                                        margin="normal"
-                                        variant="outlined"
-                                        InputProps={{...params.InputProps, type: 'search'}}
-                                    />
-                                )}
-                            />
-
-                        <TextField className={classes.classTextField} id="outlined-basic" label="Outlined" variant="outlined"/>
-                        <TextField className={classes.classTextField} id="outlined-basic" label="Outlined" variant="outlined"/>
-                        <TextField className={classes.classTextField} id="outlined-basic" label="Outlined" variant="outlined"/>
-                        <TextField className={classes.classTextField} id="outlined-basic" label="Outlined" variant="outlined"/>
-                        <TextField className={classes.classTextField} id="outlined-basic" label="Outlined" variant="outlined"/>
+                        <button onClick={() => this.addNewCharacterField(true)}>
+                            Add new Player Character
+                        </button>
                     </div>
-                    <h3>{this.state.content.characterList}</h3>
+                    <div>
+                        <button onClick={() => this.addNewCharacterField(false)}>
+                            Add new Non Player Character
+                        </button>
+                    </div>
+                    <div>
+                        <button onClick={() => this.sortCharacters()}>
+                            Sort
+                        </button>
+                    </div>
+                    <div>
+                        {this.state.characterFields}
+                    </div>
+
                 </header>
             </div>
         );
@@ -92,10 +104,3 @@ class BoardTurnOrder extends Component {
 export default withStyles(useStyles)(BoardTurnOrder);
 
 
-const items = [
-    {value: 'apple'},
-    {value: 'pear'},
-    {value: 'orange'},
-    {value: 'grape'},
-    {value: 'banana'},
-];

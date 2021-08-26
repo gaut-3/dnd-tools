@@ -1,5 +1,6 @@
 package com.dndtools.api.services;
 
+import com.dndtools.api.models.Character;
 import com.dndtools.api.models.TurnOrders;
 import com.dndtools.api.repository.TurnOrdersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,10 @@ public class TurnOrdersServiceImpl {
         String currentUserId = userDetailsService.getCurrentUserId();
         return turnOrdersRepository.findTurnOrdersByUserId(currentUserId);
     }
-
+/*
     public TurnOrders createTurnorder(TurnOrders turnOrders) {
+        String currentUserId = userDetailsService.getCurrentUserId();
+        charater.setName(NEW_CHARACTER_EXAMPLE_NAME);
         return turnOrdersRepository.save(turnOrders);
-    }
+    }*/
 }

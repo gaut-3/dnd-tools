@@ -24,7 +24,6 @@ export default class BoardCharacters extends Component {
     }
 
     getAllCharacters = () => {
-        console.log("rerender")
         CharactersService.getAllCharacters().then(
             response => {
                 this.setState({

@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DnDCharacter {
+public class Character {
 
     @Id
     private String id;
@@ -28,13 +28,13 @@ public class DnDCharacter {
 
     private String userId;
 
-    public DnDCharacter(String name, String userId, boolean isPlayer) {
+    public Character(String name, String userId, boolean isPlayer) {
         this.name = name;
         this.userId = userId;
         this.isPlayer = isPlayer;
     }
 
-    public DnDCharacter(String id) {
+    public Character(String id) {
         this.id = id;
     }
 }

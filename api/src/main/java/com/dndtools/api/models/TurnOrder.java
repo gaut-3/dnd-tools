@@ -20,6 +20,6 @@ public class TurnOrder {
     private Date lastModifiedDate;
 
     @Size(max = 50)
-    private List<DnDCharacter> dnDCharacters;
+    private List<Character> characters;
 
 }

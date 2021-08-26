@@ -1,7 +1,7 @@
 package com.dndtools.api.controllers;
 
-import com.dndtools.api.models.DnDCharacter;
-import com.dndtools.api.services.DnDCharacterServiceImpl;
+import com.dndtools.api.models.Character;
+import com.dndtools.api.services.CharacterServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -14,24 +14,24 @@ import java.util.List;
 public class DnDCharactersController {
 
     @Autowired
-    DnDCharacterServiceImpl dndCharactersService;
+    CharacterServiceImpl dndCharactersService;
 
     @GetMapping("/all")
     @PreAuthorize("hasRole('DM')")
-    public List<DnDCharacter> getAllCharacters() {
+    public List<Character> getAllCharacters() {
         return dndCharactersService.getAllCharactersFromUser();
     }
 
     @PostMapping("/create")
     @PreAuthorize("hasRole('DM')")
-    public DnDCharacter createCharacter(@RequestBody DnDCharacter dnDCharacter) {
-        return dndCharactersService.createCharacter(dnDCharacter);
+    public Character createCharacter(@RequestBody Character character) {
+        return dndCharactersService.createCharacter(character);
     }
 
     @PatchMapping("/update")
     @PreAuthorize("hasRole('DM')")
-    public DnDCharacter updateCharacter(@RequestBody DnDCharacter dnDCharacter) {
-        return dndCharactersService.updateCharacter(dnDCharacter);
+    public Character updateCharacter(@RequestBody Character character) {
+        return dndCharactersService.updateCharacter(character);
     }
 
     @DeleteMapping("/delete")
