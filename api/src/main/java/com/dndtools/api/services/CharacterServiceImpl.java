@@ -29,7 +29,7 @@ public class CharacterServiceImpl {
         String currentUserId = userDetailsService.getCurrentUserId();
         character.setName(NEW_CHARACTER_EXAMPLE_NAME);
         character.setUserId(currentUserId);
-        return dndCharacterRepository.insert(character);
+        return dndCharacterRepository.save(character);
     }
 
     public Character updateCharacter(Character character) {

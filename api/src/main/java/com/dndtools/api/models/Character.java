@@ -4,17 +4,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "characters")
+import javax.persistence.*;
+
+@Entity
+@Table(name = "characters")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Character {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     private String name;
     private String race;
@@ -22,8 +24,6 @@ public class Character {
     private String health;
     private String armorClass;
     private String comment;
-
-    @JsonProperty("isPlayer")
     private boolean isPlayer;
 
     private String userId;
@@ -34,7 +34,5 @@ public class Character {
         this.isPlayer = isPlayer;
     }
 
-    public Character(String id) {
-        this.id = id;
-    }
+
 }

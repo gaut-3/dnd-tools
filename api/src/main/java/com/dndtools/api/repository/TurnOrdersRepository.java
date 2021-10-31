@@ -1,14 +1,14 @@
 package com.dndtools.api.repository;
 
-import com.dndtools.api.models.TurnOrder;
 import com.dndtools.api.models.TurnOrders;
-import com.dndtools.api.models.User;
-import org.springframework.data.mongodb.repository.MongoRepository;
-
-import java.util.List;
-import java.util.Optional;
+import org.springframework.data.repository.CrudRepository;
 
 
-public interface TurnOrdersRepository extends MongoRepository<TurnOrders, String> {
-  TurnOrders findTurnOrdersByUserId(String id);
+/*
+public interface TurnOrdersRepository extends CrudRepository<TurnOrders, String> {
+    TurnOrders findTurnOrdersByUserId(String id);
+}
+*/
+public interface TurnOrdersRepository {
+
 }
