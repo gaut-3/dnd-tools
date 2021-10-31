@@ -11,9 +11,6 @@ import {Button, Checkbox, TextField} from "@material-ui/core";
 var randomstring = require("randomstring");
 
 
-interface Props {
-}
-
 export const CalendarComponent = () => {
 
     const dates = ["21.06.2021", "22.06.2021", "23.06.2021", "24.06.2021", "24.06.2021", "24.06.2021", "24.06.2021"]
