@@ -1,11 +1,7 @@
 name: deploy-frontend
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - "frontend-new/**"
+  workflow_dispatch:
 
 defaults:
   run:
