@@ -114,7 +114,7 @@ export const CalendarComponent = () => {
                                 </TableCell>
                                 {
                                     dates.map(date => {
-                                        userDate.dates.filter(value => date === value.date).map(found =>
+                                        return userDate.dates.filter(value => date === value.date).map(found =>
                                             <TableCell><Checkbox checked={found.participation}
                                                                  onChange={e => handleDateCheckboxChange(userDate.id, found.date, e)}/>
                                             </TableCell>)
