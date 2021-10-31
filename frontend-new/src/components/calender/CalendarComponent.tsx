@@ -84,7 +84,7 @@ export const CalendarComponent = () => {
         let temp = [...userDates];
         temp.forEach(value => {
             if (value.id === userDateId) {
-               value.name = event.target.value;
+                value.name = event.target.value;
             }
         })
 
@@ -97,7 +97,7 @@ export const CalendarComponent = () => {
             asdf
             <Button variant="contained" onClick={handleAddUserDateClick}>Add</Button>
             <TableContainer sx={{minWidth: 650, maxWidth: 900}} component={Paper}>
-                <Table  aria-label="simple table">
+                <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell>Name</TableCell>
@@ -108,16 +108,16 @@ export const CalendarComponent = () => {
                     <TableBody>
                         {userDates.map((userDate) => (
                             <TableRow key={userDate.id}>
-                                <TableCell sx={{minWidth: 300, maxWidth: 300}}  scope="row">
-                                    <TextField fullWidth variant="outlined" onChange={e => handleNameChange(userDate.id, e)} value= {userDate.name} />
+                                <TableCell sx={{minWidth: 300, maxWidth: 300}} scope="row">
+                                    <TextField fullWidth variant="outlined"
+                                               onChange={e => handleNameChange(userDate.id, e)} value={userDate.name}/>
                                 </TableCell>
                                 {
                                     dates.map(date => {
-                                        const found = userDate.dates.find(value => date === value.date)
-                                        if (found) {
-                                            return <TableCell><Checkbox checked={found.participation}
-                                                                        onChange={e => handleDateCheckboxChange(userDate.id, found.date, e)}/></TableCell>
-                                        }
+                                        userDate.dates.filter(value => date === value.date).map(found =>
+                                            <TableCell><Checkbox checked={found.participation}
+                                                                 onChange={e => handleDateCheckboxChange(userDate.id, found.date, e)}/>
+                                            </TableCell>)
                                     })
                                 }
                             </TableRow>
