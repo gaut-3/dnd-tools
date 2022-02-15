@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
-import {CalendarComponent} from "./components/calender/CalendarComponent";
+import TurnOrderComponent from "./components/turnorder/TurnOrderComponent";
 
 function App() {
     return (
-        <CalendarComponent/>
+        /*<CalendarComponent/>*/
+        <TurnOrderComponent />
     );
 }
 

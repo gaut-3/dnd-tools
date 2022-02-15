@@ -13,7 +13,8 @@ var randomstring = require("randomstring");
 
 export const CalendarComponent = () => {
 
-    const dates = ["21.06.2021", "22.06.2021", "23.06.2021", "24.06.2021", "24.06.2021", "24.06.2021", "24.06.2021"]
+   // https://medium.com/benextcompany/refactoring-react-class-components-to-typescript-functional-components-with-hooks-a4f42b2bd7b5
+    const dates = ["21.06.2021", "22.06.2021", "23.06.2021", "24.06.2021", "25.06.2021", "26.06.2021", "27.06.2021"]
     const [userDates, setUserDates] = useState([
         {
             "id": "1",
@@ -72,6 +73,8 @@ export const CalendarComponent = () => {
         const newDates = dates.map(value => {
             return {"date": value, "participation": false}
         })
+
+        console.log(newDates)
         temp.push({
             "id": randomstring.generate(4),
             "name": "",
@@ -94,7 +97,6 @@ export const CalendarComponent = () => {
 
     return (
         <div>
-            asdf
             <Button variant="contained" onClick={handleAddUserDateClick}>Add</Button>
             <TableContainer sx={{minWidth: 650, maxWidth: 900}} component={Paper}>
                 <Table aria-label="simple table">
@@ -102,7 +104,7 @@ export const CalendarComponent = () => {
                         <TableRow>
                             <TableCell>Name</TableCell>
                             {dates.map(date =>
-                                <TableCell key={date}>{date}</TableCell>)}
+                                <TableCell>{date}</TableCell>)}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -115,8 +117,9 @@ export const CalendarComponent = () => {
                                 {
                                     dates.map(date => {
                                         return userDate.dates.filter(value => date === value.date).map(found =>
-                                            <TableCell><Checkbox checked={found.participation}
-                                                                 onChange={e => handleDateCheckboxChange(userDate.id, found.date, e)}/>
+                                            <TableCell>
+                                                <Checkbox checked={found.participation}
+                                                          onChange={e => handleDateCheckboxChange(userDate.id, found.date, e)}/>
                                             </TableCell>)
                                     })
                                 }
