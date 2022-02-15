@@ -12,14 +12,17 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Fragment } from 'react';
+import { TextField } from '@mui/material';
+import {OrderColumnComponent} from "./OrderColumnComponent";
 
 function createData(
     name: string,
-    calories: number,
-    fat: number,
-    carbs: number,
-    protein: number,
-    price: number,
+    calories: string,
+    fat: string,
+    carbs: string,
+    protein: string,
+    price: string,
 ) {
     return {
         name,
@@ -48,7 +51,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
     const [open, setOpen] = React.useState(false);
 
     return (
-        <React.Fragment>
+        <Fragment>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
                 <TableCell>
                     <IconButton
@@ -60,12 +63,12 @@ function Row(props: { row: ReturnType<typeof createData> }) {
                     </IconButton>
                 </TableCell>
                 <TableCell component="th" scope="row">
-                    {row.name}
+                    <TextField fullWidth variant="standard" value={row.name} />
                 </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
+                <TableCell align="right"><OrderColumnComponent textValue={row.calories} textPlaceHolder="calories" /></TableCell>
+                <TableCell align="right"><TextField fullWidth variant="standard" value={row.fat} /></TableCell>
+                <TableCell align="right"><TextField fullWidth variant="standard" value={row.carbs} /></TableCell>
+                <TableCell align="right"><TextField fullWidth variant="standard" value={row.protein} /></TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -92,7 +95,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
                                             <TableCell>{historyRow.customerId}</TableCell>
                                             <TableCell align="right">{historyRow.amount}</TableCell>
                                             <TableCell align="right">
-                                                {Math.round(historyRow.amount * row.price * 100) / 100}
+                                              test
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -102,16 +105,16 @@ function Row(props: { row: ReturnType<typeof createData> }) {
                     </Collapse>
                 </TableCell>
             </TableRow>
-        </React.Fragment>
+        </Fragment>
     );
 }
 
 const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-    createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-    createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-    createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
+    createData('Zokora', "", "6.0", "6.0", "6.0", "6.0"),
+    createData('Colfindir', "", "9.0", "6.0", "6.0", "6.0"),
+    createData('Eclair', "262", "16.0", "6.0", "6.0", "6.0"),
+    createData('Cupcake', "305", "3.7", "6.0", "6.0", "6.0"),
+    createData('Gingerbread', "356", "16.0", "6.0", "6.0", "6.0"),
 ];
 
 export default function TurnOrderComponent() {
@@ -121,11 +124,11 @@ export default function TurnOrderComponent() {
                 <TableHead>
                     <TableRow>
                         <TableCell />
-                        <TableCell>Dessert (100g serving)</TableCell>
-                        <TableCell align="right">Calories</TableCell>
-                        <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                        <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                        <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                        <TableCell>Name</TableCell>
+                        <TableCell align="left">Initiative</TableCell>
+                        <TableCell align="left">AC</TableCell>
+                        <TableCell align="left">HP</TableCell>
+                        <TableCell align="left">Protein&nbsp;(g)</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
