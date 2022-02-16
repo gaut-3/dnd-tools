@@ -1,23 +1,28 @@
 import * as React from 'react';
+import {ChangeEvent, useState} from 'react';
 import {TextField} from '@mui/material';
 
 interface Props {
     textValue: string
     textPlaceHolder: string
-    key: number
+    characterId: number
 }
 
-export const OrderColumnComponent = ({textValue, textPlaceHolder, key}: Props) => {
+export const OrderColumnComponent = ({textValue, textPlaceHolder, characterId}: Props) => {
 
-    const changeText = (key: number, textValue: string): void => {
+    const [text, setText] = useState<string>(textValue);
 
+    const handleTextChange = (characterId: number, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+        setText(event.target.value)
     }
 
     const columnTextField = (): ReturnType<typeof TextField> => {
-        if (textValue === "" || textValue === "0") {
-            return <TextField key={key} fullWidth variant="standard" placeholder={textPlaceHolder}/>
+        if (text === "" || text === "0") {
+            return <TextField key={characterId} onChange={e => handleTextChange(characterId, e)} fullWidth
+                              variant="standard" placeholder={textPlaceHolder}/>
         } else {
-            return <TextField fullWidth variant="standard" value={textValue}/>
+            return <TextField key={characterId} onChange={e => handleTextChange(characterId, e)} fullWidth
+                              variant="standard" value={text}/>
         }
     }
 
