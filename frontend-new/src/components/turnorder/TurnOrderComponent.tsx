@@ -10,6 +10,10 @@ import Paper from '@mui/material/Paper';
 import {Cookies} from 'react-cookie';
 import {TurnOrderCharacter} from "../../models/TurnOrderCharacter";
 import {RowComponent} from "./RowComponent";
+import {useSelector} from "react-redux";
+import {useAppDispatch, useAppSelector} from "../../store/hook";
+import {Button} from "@mui/material";
+import {addCharacter} from "../../store/turnorder/turnorderSlice";
 
 
 const getCharactersFromCookie = (): TurnOrderCharacter[] => {
@@ -29,7 +33,24 @@ const getCharactersFromCookie = (): TurnOrderCharacter[] => {
 
 export const TurnOrderComponent = () => {
 
-    const [characterList, setCharacterList] = useState<TurnOrderCharacter[]>(getCharactersFromCookie());
+    //const [characterList, setCharacterList] = useState<TurnOrderCharacter[]>(getCharactersFromCookie());
+
+    const turnOrder = useAppSelector((state ) => state.turnOrder)
+    const dispatch = useAppDispatch()
+    console.log(turnOrder.characterList)
+
+    const handleAddEvent = () => {
+        const newCharacter = {
+            id: 5,
+            name: "test",
+            initiative: "6",
+            ac: "ac",
+            hp: "hp",
+            comment: "comment",
+            description: "descript"
+        };
+        dispatch(addCharacter(newCharacter));
+    }
 
     return (
         <div>
@@ -46,12 +67,13 @@ export const TurnOrderComponent = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {characterList.map((character) => (
+                        {turnOrder.characterList.map((character) => (
                             <RowComponent character={character}/>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
+            <Button variant="contained" onClick={handleAddEvent}>Add</Button>
         </div>
     );
 }

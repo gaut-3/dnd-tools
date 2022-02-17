@@ -1,11 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
+import {turnorderReducer} from "./turnorder/turnorderSlice";
 // ...
 
 export const store = configureStore({
     reducer: {
-        posts: postsReducer,
-        comments: commentsReducer,
-        users: usersReducer,
+        turnOrder: turnorderReducer,
     },
 })
 

@@ -13,6 +13,8 @@ import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableBody from "@mui/material/TableBody";
 import {TurnOrderCharacter} from "../../models/TurnOrderCharacter";
+import {useAppDispatch} from "../../store/hook";
+import {addCharacter} from "../../store/turnorder/turnorderSlice";
 
 interface Props {
     character: TurnOrderCharacter
@@ -21,6 +23,7 @@ interface Props {
 export const RowComponent = ({character}: Props) => {
 
     const [open, setOpen] = React.useState(false);
+    const dispatch = useAppDispatch()
 
     const openClickHander = () => {
         if (character.description === "" || character.description === "0") {
@@ -56,20 +59,20 @@ export const RowComponent = ({character}: Props) => {
                 </TableCell>
                 <TableCell align="right">
                     <OrderColumnComponent textValue={character.initiative}
-                                                               textPlaceHolder="Initiative"
-                                                               characterId={character.id}/>
+                                          textPlaceHolder="Initiative"
+                                          characterId={character.id}/>
                 </TableCell>
                 <TableCell align="right">
                     <OrderColumnComponent textValue={character.ac} textPlaceHolder="Armor Class"
-                                                               characterId={character.id}/>
+                                          characterId={character.id}/>
                 </TableCell>
                 <TableCell align="right">
                     <OrderColumnComponent textValue={character.hp} textPlaceHolder="Health"
-                                                               characterId={character.id}/>
+                                          characterId={character.id}/>
                 </TableCell>
                 <TableCell align="right">
                     <OrderColumnComponent textValue={character.comment} textPlaceHolder="Comment"
-                                                               characterId={character.id}/>
+                                          characterId={character.id}/>
                 </TableCell>
             </TableRow>
             <TableRow>
