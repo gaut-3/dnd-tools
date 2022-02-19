@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {useState} from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,49 +6,27 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {Cookies} from 'react-cookie';
-import {TurnOrderCharacter} from "../../models/TurnOrderCharacter";
 import {RowComponent} from "./RowComponent";
-import {useSelector} from "react-redux";
 import {useAppDispatch, useAppSelector} from "../../store/hook";
 import {Button} from "@mui/material";
-import {addCharacter} from "../../store/turnorder/turnorderSlice";
-
-
-const getCharactersFromCookie = (): TurnOrderCharacter[] => {
-    const cookies = new Cookies();
-    cookies.set("turnorder", "{\"characters\":[{\"id\":1,\"name\":\"Zokora\",\"initiative\":\"4\",\"ac\":\"\",\"hp\":\"\",\"comment\":\"\",\"description\":\"asdfasd asd fas\"},{\"id\":2,\"name\":\"Colfindir\",\"initiative\":\"1\",\"ac\":\"\",\"hp\":\"\",\"comment\":\"\",\"description\":\"\"},{\"id\":3,\"name\":\"Monster\",\"initiative\":\"4\",\"ac\":\"15\",\"hp\":\"30\",\"comment\":\"\",\"description\":\"\"}],\"lastModified\":\"31.08.2021 13:00\"}")
-    const turnOrderCookie = cookies.get('turnorder')
-    let turnOrder = JSON.parse(JSON.stringify(turnOrderCookie));
-    const characterList = turnOrder.characters.sort((char1 : TurnOrderCharacter, char2 : TurnOrderCharacter) => {
-        if (char1.initiative > char2.initiative) {
-            return -1
-        } else {
-            return 1
-        }
-    })
-    return characterList;
-}
+import {addCharacter, resetCharacterList, syncCharacterList} from "../../store/turnorder/turnorderSlice";
 
 export const TurnOrderComponent = () => {
 
-    //const [characterList, setCharacterList] = useState<TurnOrderCharacter[]>(getCharactersFromCookie());
-
-    const turnOrder = useAppSelector((state ) => state.turnOrder)
+    const turnOrder = useAppSelector((state) => state.turnOrder)
     const dispatch = useAppDispatch()
     console.log(turnOrder.characterList)
 
     const handleAddEvent = () => {
-        const newCharacter = {
-            id: 5,
-            name: "test",
-            initiative: "6",
-            ac: "ac",
-            hp: "hp",
-            comment: "comment",
-            description: "descript"
-        };
-        dispatch(addCharacter(newCharacter));
+        dispatch(addCharacter());
+    }
+
+    const handleSyncEvent = () => {
+        dispatch(syncCharacterList())
+    }
+
+    const handleResetEvent = () => {
+        dispatch(resetCharacterList())
     }
 
     return (
@@ -74,6 +51,8 @@ export const TurnOrderComponent = () => {
                 </Table>
             </TableContainer>
             <Button variant="contained" onClick={handleAddEvent}>Add</Button>
+            <Button variant="contained" onClick={handleResetEvent}>Reset</Button>
+            <Button variant="contained" onClick={handleSyncEvent}>Sync</Button>
         </div>
     );
 }

@@ -7,4 +7,5 @@ export interface TurnOrderCharacter  {
     hp: string,
     comment: string,
     description: string,
+    isPlayer: boolean
 }

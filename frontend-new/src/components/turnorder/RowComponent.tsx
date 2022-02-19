@@ -48,31 +48,31 @@ export const RowComponent = ({character}: Props) => {
 
     return (
         <Fragment>
-            <TableRow sx={{'& > *': {borderBottom: 'unset'}}}>
+            <TableRow data-id={character.id} key={character.id} sx={{'& > *': {borderBottom: 'unset'}}}>
                 <TableCell>
                     {iconButton()}
                 </TableCell>
                 <TableCell component="th" scope="row">
                     <OrderColumnComponent textValue={character.name}
                                           textPlaceHolder="Name"
-                                          characterId={character.id}/>
+                                          character={character}/>
                 </TableCell>
                 <TableCell align="right">
                     <OrderColumnComponent textValue={character.initiative}
                                           textPlaceHolder="Initiative"
-                                          characterId={character.id}/>
+                                          character={character}/>
                 </TableCell>
                 <TableCell align="right">
                     <OrderColumnComponent textValue={character.ac} textPlaceHolder="Armor Class"
-                                          characterId={character.id}/>
+                                          character={character}/>
                 </TableCell>
                 <TableCell align="right">
                     <OrderColumnComponent textValue={character.hp} textPlaceHolder="Health"
-                                          characterId={character.id}/>
+                                          character={character}/>
                 </TableCell>
                 <TableCell align="right">
                     <OrderColumnComponent textValue={character.comment} textPlaceHolder="Comment"
-                                          characterId={character.id}/>
+                                          character={character}/>
                 </TableCell>
             </TableRow>
             <TableRow>
