@@ -58,7 +58,7 @@ export const RowComponent = ({character}: Props) => {
                                           character={character}/>
                 </TableCell>
                 <TableCell align="right">
-                    <OrderColumnComponent textValue={character.initiative}
+                    <OrderColumnComponent textValue={character.initiative.toString()}
                                           textPlaceHolder="Initiative"
                                           character={character}/>
                 </TableCell>

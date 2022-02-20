@@ -27,7 +27,7 @@ export const OrderColumnComponent = ({textValue, textPlaceHolder, character}: Pr
                 updatedCharacter.name = event.target.value
                 break
             case 'Initiative':
-                updatedCharacter.initiative = event.target.value
+                updatedCharacter.initiative = Number(event.target.value)
                 break
             case 'Armor Class':
                 updatedCharacter.ac = event.target.value

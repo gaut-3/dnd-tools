@@ -2,7 +2,7 @@
 export interface TurnOrderCharacter  {
     id: number
     name: string
-    initiative: string,
+    initiative: number,
     ac: string,
     hp: string,
     comment: string,

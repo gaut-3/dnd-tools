@@ -9,7 +9,12 @@ import Paper from '@mui/material/Paper';
 import {RowComponent} from "./RowComponent";
 import {useAppDispatch, useAppSelector} from "../../store/hook";
 import {Button} from "@mui/material";
-import {addCharacter, resetCharacterList, syncCharacterList} from "../../store/turnorder/turnorderSlice";
+import {
+    addCharacter,
+    resetCharacterList,
+    sortCharacterList,
+    syncCharacterList
+} from "../../store/turnorder/turnorderSlice";
 
 export const TurnOrderComponent = () => {
 
@@ -27,6 +32,10 @@ export const TurnOrderComponent = () => {
 
     const handleResetEvent = () => {
         dispatch(resetCharacterList())
+    }
+
+    const handleSortEvent = () => {
+        dispatch(sortCharacterList())
     }
 
     return (
@@ -51,6 +60,7 @@ export const TurnOrderComponent = () => {
                 </Table>
             </TableContainer>
             <Button variant="contained" onClick={handleAddEvent}>Add</Button>
+            <Button variant="contained" onClick={handleSortEvent}>Sort</Button>
             <Button variant="contained" onClick={handleResetEvent}>Reset</Button>
             <Button variant="contained" onClick={handleSyncEvent}>Sync</Button>
         </div>
