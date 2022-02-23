@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {RowComponent} from "./RowComponent";
 import {useAppDispatch, useAppSelector} from "../../store/hook";
-import {Button} from "@mui/material";
+import {Box, Button} from "@mui/material";
 import {
     addCharacter,
     resetCharacterList,
@@ -39,7 +39,7 @@ export const TurnOrderComponent = () => {
     }
 
     return (
-        <div>
+        <>
             <TableContainer component={Paper}>
                 <Table aria-label="collapsible table">
                     <TableHead>
@@ -50,19 +50,22 @@ export const TurnOrderComponent = () => {
                             <TableCell align="left">AC</TableCell>
                             <TableCell align="left">HP</TableCell>
                             <TableCell align="left">Comment</TableCell>
+                            <TableCell align="center">Delete?</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {turnOrder.characterList.map((character) => (
-                            <RowComponent character={character}/>
+                            <RowComponent key={character.id} character={character}/>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Button variant="contained" onClick={handleAddEvent}>Add</Button>
-            <Button variant="contained" onClick={handleSortEvent}>Sort</Button>
-            <Button variant="contained" onClick={handleResetEvent}>Reset</Button>
-            <Button variant="contained" onClick={handleSyncEvent}>Sync</Button>
-        </div>
+            <Box sx={{ml: 5, mt: 3}}>
+                <Button variant="contained" onClick={handleAddEvent}>Add</Button>
+                <Button variant="contained" onClick={handleSortEvent}>Sort</Button>
+                <Button variant="contained" onClick={handleResetEvent}>Reset</Button>
+                <Button variant="contained" onClick={handleSyncEvent}>Sync</Button>
+            </Box>
+        </>
     );
 }

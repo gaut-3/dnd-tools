@@ -13,8 +13,10 @@ import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableBody from "@mui/material/TableBody";
 import {TurnOrderCharacter} from "../../models/TurnOrderCharacter";
+import DeleteIcon from '@mui/icons-material/Delete';
 import {useAppDispatch} from "../../store/hook";
-import {addCharacter} from "../../store/turnorder/turnorderSlice";
+import {deleteCharacter} from "../../store/turnorder/turnorderSlice";
+import {Divider, TextField} from "@mui/material";
 
 interface Props {
     character: TurnOrderCharacter
@@ -24,6 +26,9 @@ export const RowComponent = ({character}: Props) => {
 
     const [open, setOpen] = React.useState(false);
     const dispatch = useAppDispatch()
+    const deleteCharacterHandler = () => {
+        dispatch(deleteCharacter(character.id))
+    }
 
     const openClickHander = () => {
         if (character.description === "" || character.description === "0") {
@@ -33,24 +38,17 @@ export const RowComponent = ({character}: Props) => {
         }
     }
 
-    const iconButton = () => {
-        if (character.description === "" || character.description === "0") {
-            return ""
-        } else {
-            return <IconButton
-                aria-label="expand row"
-                size="small"
-                onClick={() => openClickHander()}>
-                {open ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
-            </IconButton>
-        }
-    }
 
     return (
         <Fragment>
-            <TableRow data-id={character.id} key={character.id} sx={{'& > *': {borderBottom: 'unset'}}}>
+            <TableRow data-id={character.id} sx={{'& > *': {borderBottom: 'unset'}}}>
                 <TableCell>
-                    {iconButton()}
+                    <IconButton
+                        aria-label="expand row"
+                        size="small"
+                        onClick={() => setOpen(!open)}>
+                        {open ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
+                    </IconButton>
                 </TableCell>
                 <TableCell component="th" scope="row">
                     <OrderColumnComponent textValue={character.name}
@@ -74,6 +72,11 @@ export const RowComponent = ({character}: Props) => {
                     <OrderColumnComponent textValue={character.comment} textPlaceHolder="Comment"
                                           character={character}/>
                 </TableCell>
+                <TableCell align="center">
+                    <IconButton onClick={deleteCharacterHandler}>
+                        <DeleteIcon />
+                    </IconButton >
+                </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{paddingBottom: 0, paddingTop: 0}} colSpan={6}>
@@ -82,7 +85,8 @@ export const RowComponent = ({character}: Props) => {
                             <Typography variant="h6" gutterBottom component="div">
                                 History
                             </Typography>
-                            <Table size="small" aria-label="purchases">
+                            <TextField value={character.description} multiline></TextField>
+                           {/* <Table size="small" aria-label="purchases">
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>Date</TableCell>
@@ -92,20 +96,22 @@ export const RowComponent = ({character}: Props) => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {/*{ character.description.map((row) => (*/}
-                                    {/*    <TableRow key={historyRow.date}>*/}
-                                    {/*        <TableCell component="th" scope="row">*/}
-                                    {/*            {historyRow.date}*/}
-                                    {/*        </TableCell>*/}
-                                    {/*        <TableCell>{historyRow.customerId}</TableCell>*/}
-                                    {/*        <TableCell align="right">{historyRow.amount}</TableCell>*/}
-                                    {/*        <TableCell align="right">*/}
-                                    {/*            test*/}
-                                    {/*        </TableCell>*/}
-                                    {/*    </TableRow>*/}
-                                    {/*)) }*/}
+                                    <TextField multiline></TextField>
+
+                                    { character.description.map((row) => (
+                                        <TableRow key={historyRow.date}>
+                                            <TableCell component="th" scope="row">
+                                                {historyRow.date}
+                                            </TableCell>
+                                            <TableCell>{historyRow.customerId}</TableCell>
+                                            <TableCell align="right">{historyRow.amount}</TableCell>
+                                            <TableCell align="right">
+                                                test
+                                            </TableCell>
+                                        </TableRow>
+                                    )) }
                                 </TableBody>
-                            </Table>
+                            </Table>*/}
                         </Box>
                     </Collapse>
                 </TableCell>

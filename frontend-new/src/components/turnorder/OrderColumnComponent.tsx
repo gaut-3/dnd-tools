@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent, useEffect, useReducer, useState} from 'react';
 import {TextField} from '@mui/material';
 import {TurnOrderCharacter} from "../../models/TurnOrderCharacter";
 import {useAppDispatch} from "../../store/hook";
@@ -15,6 +15,11 @@ export const OrderColumnComponent = ({textValue, textPlaceHolder, character}: Pr
 
     const [text, setText] = useState<string>(textValue);
     const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        setText(textValue)
+        console.log("asfdafsd")
+    }, [character])
 
     const handleTextChange = (characterId: number, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
         setText(event.target.value)

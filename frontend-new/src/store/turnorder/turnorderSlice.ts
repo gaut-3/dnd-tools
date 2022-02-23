@@ -125,7 +125,6 @@ export const turnorderSlice = createSlice({
         },
         sortCharacterList: (state) => {
             state.characterList = sortList(state.characterList)
-            console.log(state.characterList)
         },
         resetCharacterList: (state) => {
             state.characterList = []
