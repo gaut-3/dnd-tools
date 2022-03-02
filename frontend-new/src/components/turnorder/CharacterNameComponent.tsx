@@ -49,7 +49,7 @@ export const CharacterNameComponent = ({textValue, textPlaceHolder, character}: 
 
     return (
         <Autocomplete
-            fullWidth
+            style={{minWidth: 200, maxWidth: 200}}
             onInputChange={e => handleAutocompleteChange(e)}
             freeSolo value={text}
             placeholder={textPlaceHolder}

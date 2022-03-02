@@ -1,10 +1,7 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {createSlice} from '@reduxjs/toolkit'
 import type {RootState} from '../store'
-import {TurnOrderCharacter} from "../../models/TurnOrderCharacter";
-import {Cookies} from "react-cookie";
-import playerCharactersConfig from './../../resources/playerCharacter.json';
 import monstersFromJson from './../../resources/monsters5e.json';
-import { Welcome} from "../../models/Monster";
+import {Welcome} from "../../models/Monster";
 
 
 interface MonsterState {
@@ -12,11 +9,7 @@ interface MonsterState {
 }
 
 const getMonstersFromFile = (): Welcome[] => {
-    let monstersFromJson2 = monstersFromJson;
-    let monstersFromJson1 = monstersFromJson2;
-    //let monsters = Convert.toWelcome(monstersFromJson);
     const monster = monstersFromJson;
-    console.log(monster)
     return monster
 }
 

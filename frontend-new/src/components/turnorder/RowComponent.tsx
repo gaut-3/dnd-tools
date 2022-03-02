@@ -13,9 +13,9 @@ import {TurnOrderCharacter} from "../../models/TurnOrderCharacter";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useAppDispatch} from "../../store/hook";
 import {deleteCharacter} from "../../store/turnorder/turnorderSlice";
-import {TextField} from "@mui/material";
 import {createUseStyles} from 'react-jss'
 import {CharacterNameComponent} from "./CharacterNameComponent";
+import {CharacterDescriptionField} from "./CharacterDescriptionsField";
 
 interface Props {
     character: TurnOrderCharacter
@@ -50,23 +50,23 @@ export const RowComponent = ({character}: Props) => {
                 </TableCell>
                 <TableCell className={open ? classes.noBorder : ""}>
                     <CharacterNameComponent textValue={character.name}
-                                          textPlaceHolder="Name"
-                                          character={character}/>
+                                            textPlaceHolder="Name"
+                                            character={character}/>
                 </TableCell>
-                <TableCell className={open ? classes.noBorder : ""} align="right">
+                <TableCell className={open ? classes.noBorder : ""} align="left">
                     <OrderColumnComponent textValue={character.initiative.toString()}
                                           textPlaceHolder="Initiative"
                                           character={character}/>
                 </TableCell>
-                <TableCell className={open ? classes.noBorder : ""} align="right">
-                    <OrderColumnComponent textValue={character.ac} textPlaceHolder="Armor Class"
+                <TableCell className={open ? classes.noBorder : ""} align="left">
+                    <OrderColumnComponent textValue={character.ac} textPlaceHolder="AC"
                                           character={character}/>
                 </TableCell>
-                <TableCell className={open ? classes.noBorder : ""} align="right">
-                    <OrderColumnComponent textValue={character.hp} textPlaceHolder="Health"
-                                          character={ character}/>
+                <TableCell className={open ? classes.noBorder : ""} align="left">
+                    <OrderColumnComponent textValue={character.hp} textPlaceHolder="HP"
+                                          character={character}/>
                 </TableCell>
-                <TableCell className={open ? classes.noBorder : ""} align="right">
+                <TableCell className={open ? classes.noBorder : ""} align="left">
                     <OrderColumnComponent textValue={character.comment} textPlaceHolder="Comment"
                                           character={character}/>
                 </TableCell>
@@ -84,7 +84,7 @@ export const RowComponent = ({character}: Props) => {
                             <Typography variant="h6" gutterBottom component="div">
                                 History
                             </Typography>
-                            <TextField fullWidth minRows={5} value={character.description} multiline></TextField>
+                            <CharacterDescriptionField character={character}/>
                             {/* <Table size="small" aria-label="purchases">
                                 <TableHead>
                                     <TableRow>

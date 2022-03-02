@@ -1,9 +1,10 @@
 import * as React from 'react';
-import {ChangeEvent, SyntheticEvent, useEffect, useState} from 'react';
-import {Autocomplete, TextField} from '@mui/material';
+import {ChangeEvent, useEffect, useState} from 'react';
+import {TextField} from '@mui/material';
 import {TurnOrderCharacter} from "../../models/TurnOrderCharacter";
 import {useAppDispatch, useAppSelector} from "../../store/hook";
 import {updateCharacter} from "../../store/turnorder/turnorderSlice";
+import {createUseStyles} from "react-jss";
 
 interface Props {
     textValue: string
@@ -11,11 +12,21 @@ interface Props {
     character: TurnOrderCharacter
 }
 
+const useStyles = createUseStyles({
+    normalWidth: {
+        minWidth: 70, maxWidth: 70
+    },
+    commentWidth: {
+        minWidth: 200, maxWidth: 200
+    }
+})
+
+
 export const OrderColumnComponent = ({textValue, textPlaceHolder, character}: Props) => {
 
     const [text, setText] = useState<string>(textValue);
+    const classes = useStyles()
     const dispatch = useAppDispatch()
-    const monsters = useAppSelector((state) => state.monsters)
 
     useEffect(() => {
         setText(textValue)
@@ -34,10 +45,10 @@ export const OrderColumnComponent = ({textValue, textPlaceHolder, character}: Pr
             case 'Initiative':
                 updatedCharacter.initiative = Number(event.target.value)
                 break
-            case 'Armor Class':
+            case 'AC':
                 updatedCharacter.ac = event.target.value
                 break
-            case 'Health':
+            case 'HP':
                 updatedCharacter.hp = event.target.value
                 break
             case 'Comment':
@@ -51,7 +62,7 @@ export const OrderColumnComponent = ({textValue, textPlaceHolder, character}: Pr
     return (
         <TextField key={character.id}
                    onChange={e => handleTextChange(character.id, e)}
-                   style={{minWidth: 60}}
+                   className={textPlaceHolder === "Comment" ? classes.commentWidth : classes.normalWidth}
                    onBlur={e => handleBlurEvent(character, e)}
                    value={text}
                    placeholder={textPlaceHolder}/>
