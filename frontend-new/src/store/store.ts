@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import {turnorderReducer} from "./turnorder/turnorderSlice";
+import {monsterReducer} from "./turnorder/monsterSlice";
 // ...
 
 export const store = configureStore({
     reducer: {
         turnOrder: turnorderReducer,
+        monsters: monsterReducer,
     },
 })
 

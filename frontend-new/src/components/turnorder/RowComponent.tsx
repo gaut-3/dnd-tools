@@ -9,40 +9,38 @@ import {OrderColumnComponent} from "./OrderColumnComponent";
 import Collapse from "@mui/material/Collapse";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableBody from "@mui/material/TableBody";
 import {TurnOrderCharacter} from "../../models/TurnOrderCharacter";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useAppDispatch} from "../../store/hook";
 import {deleteCharacter} from "../../store/turnorder/turnorderSlice";
-import {Divider, TextField} from "@mui/material";
+import {TextField} from "@mui/material";
+import {createUseStyles} from 'react-jss'
+import {CharacterNameComponent} from "./CharacterNameComponent";
 
 interface Props {
     character: TurnOrderCharacter
 }
 
+const useStyles = createUseStyles({
+    noBorder: {
+        border: "none"
+    }
+})
+
 export const RowComponent = ({character}: Props) => {
 
     const [open, setOpen] = React.useState(false);
+    const classes = useStyles()
     const dispatch = useAppDispatch()
+
     const deleteCharacterHandler = () => {
         dispatch(deleteCharacter(character.id))
     }
 
-    const openClickHander = () => {
-        if (character.description === "" || character.description === "0") {
-            setOpen(false)
-        } else {
-            setOpen(!open)
-        }
-    }
-
-
     return (
         <Fragment>
             <TableRow data-id={character.id} sx={{'& > *': {borderBottom: 'unset'}}}>
-                <TableCell>
+                <TableCell className={open ? classes.noBorder : ""}>
                     <IconButton
                         aria-label="expand row"
                         size="small"
@@ -50,43 +48,44 @@ export const RowComponent = ({character}: Props) => {
                         {open ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
                     </IconButton>
                 </TableCell>
-                <TableCell component="th" scope="row">
-                    <OrderColumnComponent textValue={character.name}
+                <TableCell className={open ? classes.noBorder : ""}>
+                    <CharacterNameComponent textValue={character.name}
                                           textPlaceHolder="Name"
                                           character={character}/>
                 </TableCell>
-                <TableCell align="right">
+                <TableCell className={open ? classes.noBorder : ""} align="right">
                     <OrderColumnComponent textValue={character.initiative.toString()}
                                           textPlaceHolder="Initiative"
                                           character={character}/>
                 </TableCell>
-                <TableCell align="right">
+                <TableCell className={open ? classes.noBorder : ""} align="right">
                     <OrderColumnComponent textValue={character.ac} textPlaceHolder="Armor Class"
                                           character={character}/>
                 </TableCell>
-                <TableCell align="right">
+                <TableCell className={open ? classes.noBorder : ""} align="right">
                     <OrderColumnComponent textValue={character.hp} textPlaceHolder="Health"
-                                          character={character}/>
+                                          character={ character}/>
                 </TableCell>
-                <TableCell align="right">
+                <TableCell className={open ? classes.noBorder : ""} align="right">
                     <OrderColumnComponent textValue={character.comment} textPlaceHolder="Comment"
                                           character={character}/>
                 </TableCell>
-                <TableCell align="center">
+                <TableCell className={open ? classes.noBorder : ""} align="center">
                     <IconButton onClick={deleteCharacterHandler}>
-                        <DeleteIcon />
-                    </IconButton >
+                        <DeleteIcon/>
+                    </IconButton>
                 </TableCell>
             </TableRow>
             <TableRow>
-                <TableCell style={{paddingBottom: 0, paddingTop: 0}} colSpan={6}>
+                <TableCell className={open ? "" : classes.noBorder} style={{paddingBottom: 0, paddingTop: 0}}
+                           colSpan={7}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box sx={{margin: 1}}>
                             <Typography variant="h6" gutterBottom component="div">
                                 History
                             </Typography>
-                            <TextField value={character.description} multiline></TextField>
-                           {/* <Table size="small" aria-label="purchases">
+                            <TextField fullWidth minRows={5} value={character.description} multiline></TextField>
+                            {/* <Table size="small" aria-label="purchases">
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>Date</TableCell>

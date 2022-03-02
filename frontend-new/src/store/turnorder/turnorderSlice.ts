@@ -2,10 +2,12 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import type {RootState} from '../store'
 import {TurnOrderCharacter} from "../../models/TurnOrderCharacter";
 import {Cookies} from "react-cookie";
+import playerCharactersConfig from './../../resources/playerCharacter.json';
+
 
 interface TurnOrderState {
     characterList: TurnOrderCharacter[]
-    idCounter: number;
+    idCounter: number
 }
 
 const initPlayerCharacter = (name: string, idCounter: number): TurnOrderCharacter => {
@@ -24,12 +26,9 @@ const initPlayerCharacter = (name: string, idCounter: number): TurnOrderCharacte
 }
 
 const initPlayerCharacters = () => {
-    let playerCharacters = [initPlayerCharacter("Aliondras Cantores", 1),
-        initPlayerCharacter("Jamtorin", 2),
-        initPlayerCharacter("Maviel", 3),
-        initPlayerCharacter("Wunwun", 4),
-        initPlayerCharacter("Zokora", 5)]
-
+    let playerCharacters = playerCharactersConfig.map((character, index) => {
+        return initPlayerCharacter(character.name, index)
+    })
     return playerCharacters
 }
 
@@ -40,7 +39,6 @@ const getCharactersFromCookie = (): TurnOrderCharacter[] => {
         let turnOrder = JSON.parse(JSON.stringify(turnOrderCookie));
         return sortList(turnOrder.characters);
     }
-
     return initPlayerCharacters()
 }
 
@@ -48,9 +46,6 @@ const sortList = (characterList: TurnOrderCharacter[]): TurnOrderCharacter[] => 
     const sortedList = characterList.sort((char1, char2) =>
         (Number(char1.initiative) > Number(char2.initiative)) ? -1 : 1
     )
-
-    console.log(sortedList)
-
     return sortedList
 }
 
@@ -61,15 +56,16 @@ const getIdCounterFromCookie = (): number => {
         let turnOrder = JSON.parse(JSON.stringify(turnOrderCookie));
         return turnOrder.idCounter
     }
-    return 0
+    return 4
 }
 
 
 // Define the initial state using that type
 const initialState: TurnOrderState = {
     characterList: getCharactersFromCookie(),
-    idCounter: getIdCounterFromCookie()
+    idCounter: getIdCounterFromCookie(),
 }
+
 
 export const turnorderSlice = createSlice({
     name: 'characterList',
@@ -122,6 +118,7 @@ export const turnorderSlice = createSlice({
                     item.description = character.description
                 }
             });
+            console.log(state.characterList)
         },
         sortCharacterList: (state) => {
             state.characterList = sortList(state.characterList)
@@ -129,6 +126,8 @@ export const turnorderSlice = createSlice({
         resetCharacterList: (state) => {
             state.characterList = []
             state.characterList = initPlayerCharacters()
+            state.idCounter = 4
+
         },
         syncCharacterList: (state) => {
             const cookies = new Cookies();
@@ -145,6 +144,7 @@ export const turnorderSlice = createSlice({
         addCounter: (state) => {
             state.idCounter = state.idCounter + 1
         }
+
     },
 })
 

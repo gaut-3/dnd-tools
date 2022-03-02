@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {ChangeEvent, useEffect, useReducer, useState} from 'react';
-import {TextField} from '@mui/material';
+import {ChangeEvent, SyntheticEvent, useEffect, useState} from 'react';
+import {Autocomplete, TextField} from '@mui/material';
 import {TurnOrderCharacter} from "../../models/TurnOrderCharacter";
-import {useAppDispatch} from "../../store/hook";
+import {useAppDispatch, useAppSelector} from "../../store/hook";
 import {updateCharacter} from "../../store/turnorder/turnorderSlice";
 
 interface Props {
@@ -15,10 +15,10 @@ export const OrderColumnComponent = ({textValue, textPlaceHolder, character}: Pr
 
     const [text, setText] = useState<string>(textValue);
     const dispatch = useAppDispatch()
+    const monsters = useAppSelector((state) => state.monsters)
 
     useEffect(() => {
         setText(textValue)
-        console.log("asfdafsd")
     }, [character])
 
     const handleTextChange = (characterId: number, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
@@ -49,8 +49,11 @@ export const OrderColumnComponent = ({textValue, textPlaceHolder, character}: Pr
     }
 
     return (
-        <TextField key={character.id} onChange={e => handleTextChange(character.id, e)} fullWidth
+        <TextField key={character.id}
+                   onChange={e => handleTextChange(character.id, e)}
+                   style={{minWidth: 60}}
                    onBlur={e => handleBlurEvent(character, e)}
-                   variant="standard" value={text} placeholder={textPlaceHolder}/>
+                   value={text}
+                   placeholder={textPlaceHolder}/>
     );
 }
