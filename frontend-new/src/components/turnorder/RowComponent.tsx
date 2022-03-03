@@ -49,9 +49,9 @@ export const RowComponent = ({character}: Props) => {
                     </IconButton>
                 </TableCell>
                 <TableCell className={open ? classes.noBorder : ""}>
-                    <CharacterNameComponent textValue={character.name}
-                                            textPlaceHolder="Name"
-                                            character={character}/>
+                    <CharacterNameComponent
+                        textPlaceHolder="Name"
+                        character={character}/>
                 </TableCell>
                 <TableCell className={open ? classes.noBorder : ""} align="left">
                     <OrderColumnComponent textValue={character.initiative.toString()}

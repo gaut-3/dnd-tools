@@ -2,7 +2,7 @@ import * as React from 'react';
 import {ChangeEvent, useEffect, useState} from 'react';
 import {TextField} from '@mui/material';
 import {TurnOrderCharacter} from "../../models/TurnOrderCharacter";
-import {useAppDispatch, useAppSelector} from "../../store/hook";
+import {useAppDispatch} from "../../store/hook";
 import {updateCharacter} from "../../store/turnorder/turnorderSlice";
 import {createUseStyles} from "react-jss";
 
@@ -30,7 +30,7 @@ export const OrderColumnComponent = ({textValue, textPlaceHolder, character}: Pr
 
     useEffect(() => {
         setText(textValue)
-    }, [character])
+    },[textValue])
 
     const handleTextChange = (characterId: number, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
         setText(event.target.value)

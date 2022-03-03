@@ -6,24 +6,20 @@ import {useAppDispatch, useAppSelector} from "../../store/hook";
 import {updateCharacter} from "../../store/turnorder/turnorderSlice";
 
 interface Props {
-    textValue: string
     textPlaceHolder: string
     character: TurnOrderCharacter
 }
 
-export const CharacterNameComponent = ({textValue, textPlaceHolder, character}: Props) => {
+export const CharacterNameComponent = ({textPlaceHolder, character}: Props) => {
 
-    const [text, setText] = useState<string>(textValue);
+    const [text, setText] = useState(character.name);
     const dispatch = useAppDispatch()
     const monsters = useAppSelector((state) => state.monsters)
 
     useEffect(() => {
-        setText(textValue)
-    }, [character])
+        setText(character.name)
+    }, [character.name])
 
-    const handleTextChange = (characterId: number, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-        setText(event.target.value)
-    }
 
     const handleBlurEvent = (character: TurnOrderCharacter, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
         let updatedCharacter = {...character};
@@ -32,17 +28,18 @@ export const CharacterNameComponent = ({textValue, textPlaceHolder, character}: 
         dispatch(updateCharacter(updatedCharacter))
     }
 
-    const handleAutocompleteChange = (e: React.SyntheticEvent) => {
-        console.log("handleCasdfasdf")
-        if (e != null && e.currentTarget.innerHTML != null) {
-            console.log(e.currentTarget.innerHTML)
-            const name = e.currentTarget.innerHTML
-            let monster = monsters.monsters.filter(value => value.name == name);
-            let updatedCharacter = {...character};
-            updatedCharacter.name = monster[0].name ? monster[0].name : ""
-            updatedCharacter.ac = monster[0].armor_class ? monster[0].armor_class.toString() : ""
-            updatedCharacter.hp = monster[0].hit_points ? monster[0].hit_points.toString() : ""
+    const handleAutocompleteChange = (e: React.SyntheticEvent, name: string | null | undefined) => {
 
+        if (name) {
+            let monster = monsters.monsters.find(value => value.name === name);
+            let updatedCharacter = {...character};
+            if (monster) {
+                updatedCharacter.name = monster.name ? monster.name : ""
+                updatedCharacter.ac = monster.armor_class ? monster.armor_class.toString() : ""
+                updatedCharacter.hp = monster.hit_points ? monster.hit_points.toString() : ""
+            } else {
+                updatedCharacter.name = name
+            }
             dispatch(updateCharacter(updatedCharacter))
         }
     }
@@ -50,11 +47,13 @@ export const CharacterNameComponent = ({textValue, textPlaceHolder, character}: 
     return (
         <Autocomplete
             style={{minWidth: 200, maxWidth: 200}}
-            onInputChange={e => handleAutocompleteChange(e)}
-            freeSolo value={text}
+            onChange={(e : any, newValue: string | null | undefined) => handleAutocompleteChange(e, newValue)}
+
+            freeSolo
+            value={text}
             placeholder={textPlaceHolder}
             options={monsters.monsters.map((option) => option.name)}
-            renderInput={(params) => <TextField onChange={e => handleTextChange(character.id, e)}
+            renderInput={(params) => <TextField
                                                 onBlur={e => handleBlurEvent(character, e)} {...params}/>}
         />
 
