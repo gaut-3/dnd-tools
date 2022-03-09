@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "postinstall": "npm install --prefix frontend-new",
-    "heroku-postbuild": "cd frontend-new && npm install && npm run build"
+    "heroku-postbuild": "cd frontend-new && npm install && npm run build",
+    "start": "cd frontend-new && react-scripts start"
   }
 }
