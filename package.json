@@ -2,11 +2,16 @@
   "name": "dnd-tools",
   "version": "0.1.0",
   "scripts": {
+    "dev": "nodemon server.js",
     "start": "node server.js",
     "heroku-postbuild": "cd frontend-new && npm install && npm run build"
   },
   "dependencies": {
     "dotenv": "^16.0.0",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }

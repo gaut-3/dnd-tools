@@ -1,15 +1,20 @@
-
 const dotenv = require('dotenv')
 const express = require('express')
-const server = http.createServer(app)
 const app = express()
+const path = require('path')
+const cors = require('cors')
+const http = require('http')
+const server = http.createServer(app)
 
+app.use(cors())
 
-app.use(express.static('frontend-new/build'))
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static('frontend-new/build'))
 
-app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-})
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    })
+}
 
 const port = process.env.PORT || 8000
 server.listen(port, () => {
