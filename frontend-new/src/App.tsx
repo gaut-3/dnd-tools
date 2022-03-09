@@ -15,6 +15,7 @@ function App() {
                     <Box sx={{backgroundColor:"#fff9f1", paddingTop: 2, border: 2, width: {md: 920}}} m="auto">
                         <Routes>
                             <Route path='/turnorder' element={<TurnOrderComponent/>}/>
+                            <Route path='/' element={<TurnOrderComponent/>}/>
                             <Route path='/dates' element={<DatesComponent/>}/>
                         </Routes>
                     </Box>
