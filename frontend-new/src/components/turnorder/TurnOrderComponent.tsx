@@ -15,12 +15,23 @@ import {
     sortCharacterList,
     syncCharacterList
 } from "../../store/turnorder/turnorderSlice";
+import {createUseStyles} from "react-jss";
+
+const useStyles = createUseStyles({
+    tableTurnorder: {
+        backgroundColor: "#fff9f1",
+        "& fieldset": {
+            borderColor: "#403448"
+
+        }
+    },
+})
 
 export const TurnOrderComponent = () => {
 
     const turnOrder = useAppSelector((state) => state.turnOrder)
     const dispatch = useAppDispatch()
-    console.log(turnOrder.characterList)
+    const classes = useStyles()
 
     const handleAddEvent = () => {
         dispatch(addCharacter());
@@ -40,7 +51,7 @@ export const TurnOrderComponent = () => {
 
     return (
         <>
-            <TableContainer component={Paper}>
+            <TableContainer className={classes.tableTurnorder} component={Paper}>
                 <Table aria-label="collapsible table">
                     <TableHead>
                         <TableRow>
