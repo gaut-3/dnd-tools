@@ -1,4 +1,6 @@
 export interface DnDDates  {
+    _id: string,
+    uuid:  string,
     dates: DnDDate[],
 }
 

@@ -5,6 +5,8 @@ import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import MenuHeader from "./page/MenuHeader";
 import {Box, Stack} from "@mui/material";
 import {DatesComponent} from "./components/dates/DatesComponent";
+import SignIn from "./components/login/SignIn";
+import SignUp from "./components/login/SignUp";
 
 function App() {
     return (
@@ -16,7 +18,10 @@ function App() {
                         <Routes>
                             <Route path='/turnorder' element={<TurnOrderComponent/>}/>
                             <Route path='/' element={<TurnOrderComponent/>}/>
-                            <Route path='/dates' element={<DatesComponent/>}/>
+                            <Route path='/dates' element={<DatesComponent editMode={false}/>}/>
+                            <Route path='/dates/edit' element={<DatesComponent editMode={true}/>}/>
+                            <Route path='/signin' element={<SignIn/>}/>
+                            <Route path='/signup' element={<SignUp/>}/>
                         </Routes>
                     </Box>
                 </Box>

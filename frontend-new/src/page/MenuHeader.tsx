@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {NavLink} from "react-router-dom";
 
-const pages = ['Turnorder', 'Dates', 'Blog'];
+const pages = ['turnorder', 'dates', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const MenuHeader = () => {

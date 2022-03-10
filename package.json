@@ -3,15 +3,37 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "nodemon server.js",
+    "start2": "npm run build && node ./build/server.js",
     "start": "node server.js",
-    "heroku-postbuild": "cd frontend-new && npm install && npm run build"
+    "heroku-postbuild": "cd frontend-new && npm install && npm run build",
+    "build":"tsc "
   },
   "dependencies": {
+    "@types/node": "^12.20.27",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
-    "cors": "^2.8.5"
+    "mongoose": "^6.2.5",
+    "typescript": "^4.4.3",
+    "uuid": "^8.3.2",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
-  }
+  },
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gaut-3/dnd-tools.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gaut-3/dnd-tools/issues"
+  },
+  "homepage": "https://github.com/gaut-3/dnd-tools#readme",
+  "description": ""
 }
