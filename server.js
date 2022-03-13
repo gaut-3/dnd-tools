@@ -41,6 +41,7 @@ if (process.env.NODE_ENV === "production") {
 app.get('/api/dnddates/:id', getDates);
 app.put('/api/dnddates/:id',  [authJwt.verifyToken, authJwt.isAdmin],  addDate);
 app.delete('/api/dnddates/:id',  [authJwt.verifyToken, authJwt.isAdmin],  addDate);
+app.delete('/logout',  [authJwt.verifyToken, authJwt.isAdmin],  addDate);
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 

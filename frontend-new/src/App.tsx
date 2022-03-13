@@ -20,8 +20,9 @@ function App() {
                             <Route path='/' element={<TurnOrderComponent/>}/>
                             <Route path='/dates' element={<DatesComponent editMode={false}/>}/>
                             <Route path='/dates/edit' element={<DatesComponent editMode={true}/>}/>
-                            <Route path='/signin' element={<SignIn/>}/>
-                            <Route path='/signup' element={<SignUp/>}/>
+                            <Route path='/login' element={<SignIn isLogout={false}/>}/>
+                            <Route path='/register' element={<SignUp/>}/>
+                            <Route path='/logout' element={<SignIn isLogout={true}/>} />
                         </Routes>
                     </Box>
                 </Box>

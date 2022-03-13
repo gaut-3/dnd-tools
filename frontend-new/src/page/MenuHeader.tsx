@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {ReactElement, useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,17 +13,23 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {NavLink} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../store/hook";
+import AuthService from "../services/AuthService";
 
-const pages = ['turnorder', 'dates', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['turnorder', 'dates'];
+const loginPages = ['login', 'register'];
+const logoutPages = ['logout'];
 
 const MenuHeader = () => {
+
+    const user = useAppSelector((state) => state.user)
+    const dispatch = useAppDispatch()
+
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
-        console.log(event.currentTarget)
     };
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
@@ -35,6 +42,26 @@ const MenuHeader = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const getProfilePages = () : ReactElement[] => {
+        if (user && AuthService.getCurrentUser()) {
+            return [logoutLink()]
+        } else {
+            return [loginLink(), registerLink()]
+        }
+    }
+
+    const loginLink = () => {
+        return (<NavLink style={{color: "inherit", textDecoration: "none"}} to="/login">Login</NavLink>)
+    }
+
+    const registerLink = () => {
+        return (<NavLink style={{color: "inherit", textDecoration: "none"}} to="/register">Sign up</NavLink>)
+    }
+
+    const logoutLink = () => {
+        return (<NavLink style={{color: "inherit", textDecoration: "none"}} to="/logout">Logout</NavLink>)
+    }
 
     return (
         <AppBar position="static">
@@ -109,7 +136,7 @@ const MenuHeader = () => {
                     <Box sx={{flexGrow: 0}}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
+                                <Avatar src="/static/images/avatar/2.jpg"/>
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -128,9 +155,9 @@ const MenuHeader = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                            {getProfilePages().map((page) => (
+                                <MenuItem  onClick={handleCloseUserMenu}>
+                                    <Typography textAlign="center">{page}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>

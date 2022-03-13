@@ -13,6 +13,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import AuthService from "../../services/AuthService";
+import {User} from "../../models/User";
+import {login, register} from "../../store/turnorder/userSlice";
+import {useAppDispatch} from "../../store/hook";
 
 function Copyright(props: any) {
     return (
@@ -30,32 +33,24 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignUp() {
+
+    const dispatch = useAppDispatch()
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         // eslint-disable-next-line no-console
-        const email1 = data.get('email');
-        const password1 = data.get('password');
-        if (email1 != null && password1 != null) {
-            let email = email1.toString();
-            let password = password1.toString();
-            AuthService.register(
-                email,
-                password
-            ).then(
-                response => {
-                   console.log(response.data.message)
-                },
-                error => {
-                    const resMessage =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
-                    console.log(resMessage)
+        const email = data.get('email');
+        const password = data.get('password');
+        if (email != null && password != null) {
+
+            if (email != null && password != null) {
+                const user : User = {
+                    email: email.toString(),
+                    password: password.toString()
                 }
-            );
+                dispatch(register(user));
+            }
         }
     };
 

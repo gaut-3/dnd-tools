@@ -1,12 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
 import {turnorderReducer} from "./turnorder/turnorderSlice";
 import {monsterReducer} from "./turnorder/monsterSlice";
+import {userReducer} from "./turnorder/userSlice";
+import {dndDatesReducer} from "./turnorder/dndDatesSlice";
 // ...
 
 export const store = configureStore({
     reducer: {
         turnOrder: turnorderReducer,
         monsters: monsterReducer,
+        user: userReducer,
+        dndDates: dndDatesReducer,
     },
 })
 

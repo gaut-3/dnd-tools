@@ -1,3 +1,5 @@
+const dotenv = require('dotenv')
+dotenv.config({path: "./config.env"})
 module.exports = {
-    secret: "dndtools-secret-key"
+    secret: process.env.JWT_SECRET
 };

@@ -13,51 +13,41 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AuthService from "../../services/AuthService";
-
-function Copyright(props: any) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import {useAppDispatch} from "../../store/hook";
+import {login, logout} from "../../store/turnorder/userSlice";
+import {User} from "../../models/User";
+import {useEffect} from "react";
+import axios from "axios";
 
 const theme = createTheme();
 
-export default function SignIn() {
+interface Props {
+    isLogout: boolean;
+}
+
+
+export default function SignIn({isLogout} :Props) {
+    const dispatch = useAppDispatch()
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         // eslint-disable-next-line no-console
-        const email1 = data.get('email');
-        const password1 = data.get('password');
-        if (email1 != null && password1 != null) {
-            let email = email1.toString();
-            let password = password1.toString();
+        const email = data.get('email');
+        const password = data.get('password');
 
-            console.log({
-                email: email1,
-                password: password1,
-            });
-
-            AuthService.login(email, password).then(() => {
-                window.location.reload();
-            },    error => {
-                const resMessage =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-                console.log(resMessage)
-            })
+        if (email != null && password != null) {
+            const user : User = {
+                email: email.toString(),
+                password: password.toString()
+            }
+            dispatch(login(user));
         }
     };
+
+    useEffect(() => {
+        if(isLogout) dispatch(logout())
+    }, [])
 
     return (
         <ThemeProvider theme={theme}>
@@ -124,7 +114,6 @@ export default function SignIn() {
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
         </ThemeProvider>
     );

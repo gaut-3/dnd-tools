@@ -7,8 +7,6 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-var randomstring = require("randomstring");
-
 interface Props {
     editMode: boolean;
 }
