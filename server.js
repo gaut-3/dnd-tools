@@ -19,6 +19,7 @@ const DB = process.env.DB.replace(
     'password',
     process.env.DB_PASS
 )
+
 mongoose.connect(DB)
     .then(() => {
         console.log("The database and collections are connected...");
@@ -30,6 +31,13 @@ app.use(express.json())
 
 app.use(cors())
 
+app.get('/api/dnddates/:id', getDates);
+app.put('/api/dnddates/:id', [authJwt.verifyToken, authJwt.isAdmin], addDate);
+app.delete('/api/dnddates/:id', [authJwt.verifyToken, authJwt.isAdmin], addDate);
+app.delete('/logout', [authJwt.verifyToken, authJwt.isAdmin], addDate);
+require('./app/routes/auth.routes')(app);
+require('./app/routes/user.routes')(app);
+
 if (process.env.NODE_ENV === "production") {
     app.use(express.static('frontend-new/build'))
 
@@ -37,13 +45,6 @@ if (process.env.NODE_ENV === "production") {
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
     })
 }
-
-app.get('/api/dnddates/:id', getDates);
-app.put('/api/dnddates/:id',  [authJwt.verifyToken, authJwt.isAdmin],  addDate);
-app.delete('/api/dnddates/:id',  [authJwt.verifyToken, authJwt.isAdmin],  addDate);
-app.delete('/logout',  [authJwt.verifyToken, authJwt.isAdmin],  addDate);
-require('./app/routes/auth.routes')(app);
-require('./app/routes/user.routes')(app);
 
 const port = process.env.PORT || 8000
 server.listen(port, () => {
