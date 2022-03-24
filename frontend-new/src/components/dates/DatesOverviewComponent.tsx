@@ -6,11 +6,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import {DnDDates} from "../../models/DnDDate";
-import {v4 as uuid} from 'uuid';
 import AuthService from "../../services/AuthService";
 import DnDDateService from "../../services/DnDDateService";
 import EditIcon from "@mui/icons-material/Edit";
 import PageviewIcon from "@mui/icons-material/Pageview";
+import uuid from "uuid"
 import {useNavigate} from 'react-router-dom'
 
 export const DatesOverviewComponent = () => {
@@ -45,7 +45,7 @@ export const DatesOverviewComponent = () => {
             const newDndDate: DnDDates = {
                 dates: [],
                 name: name.toString(),
-                uuid: uuid().toString(),
+                uuid: uuid.v4().toString(),
                 _id: null,
                 userId: AuthService.getCurrentUserId()
             }
