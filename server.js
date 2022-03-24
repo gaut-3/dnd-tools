@@ -9,6 +9,9 @@ const cookieParser = require('cookie-parser')
 const http = require('http')
 const mongoose = require('mongoose')
 const authJwt = require("./app/middlewares/authJwt");
+const {deleteDnDDates} = require("./app/controllers/date.controller");
+const {getAllDates} = require("./app/controllers/date.controller");
+const {addDnDDates} = require("./app/controllers/date.controller");
 const {addDate} = require("./app/controllers/date.controller");
 const {getDates} = require("./app/controllers/date.controller");
 const server = http.createServer(app)
@@ -33,8 +36,14 @@ app.use(cors())
 
 app.get('/api/dnddates/:id', getDates);
 app.put('/api/dnddates/:id', [authJwt.verifyToken, authJwt.isAdmin], addDate);
+app.post('/api/dnddates', [authJwt.verifyToken, authJwt.isAdmin], addDnDDates);
 app.delete('/api/dnddates/:id', [authJwt.verifyToken, authJwt.isAdmin], addDate);
+
+app.get('/api/dnddates/all/:id', [authJwt.verifyToken, authJwt.isAdmin], getAllDates);
+app.delete('/api/dnddates/all/:id', [authJwt.verifyToken, authJwt.isAdmin], deleteDnDDates);
+
 app.delete('/logout', [authJwt.verifyToken, authJwt.isAdmin], addDate);
+
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 

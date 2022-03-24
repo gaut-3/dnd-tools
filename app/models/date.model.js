@@ -2,7 +2,9 @@ const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
     uuid: {type: String},
-    dates: [{date: String, players: String, comment: String}],
+    name: {type: String},
+    dates: [{date: String, players: [], comment: String}],
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 }, {collection: 'calender'})
 
 

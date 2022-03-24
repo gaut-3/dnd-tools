@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ReactElement, useState} from 'react';
+import {ReactElement} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,17 +13,14 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {NavLink} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../store/hook";
+import {useAppSelector} from "../store/hook";
 import AuthService from "../services/AuthService";
 
-const pages = ['turnorder', 'dates'];
-const loginPages = ['login', 'register'];
-const logoutPages = ['logout'];
+const pages = [['turnorder', 'turnorder'], ['Dates', 'dates/overview']];
 
 const MenuHeader = () => {
 
     const user = useAppSelector((state) => state.user)
-    const dispatch = useAppDispatch()
 
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -43,7 +40,7 @@ const MenuHeader = () => {
         setAnchorElUser(null);
     };
 
-    const getProfilePages = () : ReactElement[] => {
+    const getProfilePages = (): ReactElement[] => {
         if (user && AuthService.getCurrentUser()) {
             return [logoutLink()]
         } else {
@@ -105,12 +102,14 @@ const MenuHeader = () => {
                                 display: {xs: 'block', md: 'none'},
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center"><NavLink
-                                        style={{color: "inherit", textDecoration: "none"}} to="/{page}">{page}</NavLink></Typography>
-                                </MenuItem>
-                            ))}
+                            {pages.map((pageInfo) =>
+                                (
+                                    <MenuItem key={pageInfo[0]} onClick={handleCloseNavMenu}>
+                                        <Typography textAlign="center"><NavLink
+                                            style={{color: "inherit", textDecoration: "none"}}
+                                            to="/{pageInfo[1]}">{pageInfo[0]}</NavLink></Typography>
+                                    </MenuItem>
+                                ))}
                         </Menu>
                     </Box>
                     <Typography
@@ -122,13 +121,14 @@ const MenuHeader = () => {
                         LOGO
                     </Typography>
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                        {pages.map((page) => (
+                        {pages.map((pageInfo) => (
                             <Button
-                                key={page}
+                                key={pageInfo[0]}
                                 onClick={handleCloseNavMenu}
                                 sx={{my: 2, color: 'white', display: 'block'}}
                             >
-                                <NavLink style={{color: "inherit", textDecoration: "none"}} to={page}>{page}</NavLink>
+                                <NavLink style={{color: "inherit", textDecoration: "none"}}
+                                         to={pageInfo[1]}>{pageInfo[0]}</NavLink>
                             </Button>
                         ))}
                     </Box>
@@ -155,9 +155,9 @@ const MenuHeader = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {getProfilePages().map((page) => (
-                                <MenuItem  onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                            {getProfilePages().map((navLink, index) => (
+                                <MenuItem key={index} onClick={handleCloseUserMenu}>
+                                    <Typography textAlign="center">{navLink}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>

@@ -12,9 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import AuthService from "../../services/AuthService";
 import {User} from "../../models/User";
-import {login, register} from "../../store/turnorder/userSlice";
+import {register} from "../../store/userSlice";
 import {useAppDispatch} from "../../store/hook";
 
 function Copyright(props: any) {
@@ -45,7 +44,7 @@ export default function SignUp() {
         if (email != null && password != null) {
 
             if (email != null && password != null) {
-                const user : User = {
+                const user: User = {
                     email: email.toString(),
                     password: password.toString()
                 }

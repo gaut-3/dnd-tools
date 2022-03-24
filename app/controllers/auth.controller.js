@@ -15,7 +15,6 @@ exports.signup = (req, res) => {
             return;
         }
         if (req.body.roles) {
-            console.log("user.save",req.body.roles)
             Role.find(
                 {
                     name: { $in: req.body.roles }

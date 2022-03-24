@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useEffect} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,13 +12,10 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AuthService from "../../services/AuthService";
+import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useAppDispatch} from "../../store/hook";
-import {login, logout} from "../../store/turnorder/userSlice";
+import {login, logout} from "../../store/userSlice";
 import {User} from "../../models/User";
-import {useEffect} from "react";
-import axios from "axios";
 
 const theme = createTheme();
 
@@ -25,8 +23,7 @@ interface Props {
     isLogout: boolean;
 }
 
-
-export default function SignIn({isLogout} :Props) {
+export default function SignIn({isLogout}: Props) {
     const dispatch = useAppDispatch()
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -37,7 +34,7 @@ export default function SignIn({isLogout} :Props) {
         const password = data.get('password');
 
         if (email != null && password != null) {
-            const user : User = {
+            const user: User = {
                 email: email.toString(),
                 password: password.toString()
             }
@@ -46,13 +43,13 @@ export default function SignIn({isLogout} :Props) {
     };
 
     useEffect(() => {
-        if(isLogout) dispatch(logout())
-    }, [])
+        if (isLogout) dispatch(logout())
+    }, [dispatch, isLogout])
 
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
-                <CssBaseline />
+                <CssBaseline/>
                 <Box
                     sx={{
                         marginTop: 8,
@@ -61,13 +58,13 @@ export default function SignIn({isLogout} :Props) {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
+                    <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                        <LockOutlinedIcon/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
                         <TextField
                             margin="normal"
                             required
@@ -89,14 +86,14 @@ export default function SignIn({isLogout} :Props) {
                             autoComplete="current-password"
                         />
                         <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
+                            control={<Checkbox value="remember" color="primary"/>}
                             label="Remember me"
                         />
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{mt: 3, mb: 2}}
                         >
                             Sign In
                         </Button>

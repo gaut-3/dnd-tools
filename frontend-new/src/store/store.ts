@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
 import {turnorderReducer} from "./turnorder/turnorderSlice";
 import {monsterReducer} from "./turnorder/monsterSlice";
-import {userReducer} from "./turnorder/userSlice";
-import {dndDatesReducer} from "./turnorder/dndDatesSlice";
+import {userReducer} from "./userSlice";
+import {dndDatesReducer} from "./dndDatesSlice";
 // ...
 
 export const store = configureStore({
@@ -11,7 +11,7 @@ export const store = configureStore({
         monsters: monsterReducer,
         user: userReducer,
         dndDates: dndDatesReducer,
-    },
+    }
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

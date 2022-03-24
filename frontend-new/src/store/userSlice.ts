@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import type {RootState} from '../store'
-import {User} from "../../models/User";
-import AuthService from "../../services/AuthService";
+import type {RootState} from './store'
+import {User} from "../models/User";
+import AuthService from "../services/AuthService";
 
 
 interface UserState {
@@ -27,6 +27,7 @@ export const userSlice = createSlice({
                         error.response.data.message) ||
                     error.message ||
                     error.toString();
+                console.log(resMessage)
             })
             if (success) {
                 state.user = user
