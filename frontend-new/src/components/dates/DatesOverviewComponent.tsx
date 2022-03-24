@@ -10,7 +10,7 @@ import AuthService from "../../services/AuthService";
 import DnDDateService from "../../services/DnDDateService";
 import EditIcon from "@mui/icons-material/Edit";
 import PageviewIcon from "@mui/icons-material/Pageview";
-import uuid from "uuid"
+import { v4 as uuidv4 } from 'uuid';
 import {useNavigate} from 'react-router-dom'
 
 export const DatesOverviewComponent = () => {
@@ -45,7 +45,7 @@ export const DatesOverviewComponent = () => {
             const newDndDate: DnDDates = {
                 dates: [],
                 name: name.toString(),
-                uuid: uuid.v4().toString(),
+                uuid: uuidv4().toString(),
                 _id: null,
                 userId: AuthService.getCurrentUserId()
             }
