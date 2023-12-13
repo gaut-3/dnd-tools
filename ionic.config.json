@@ -1,0 +1,7 @@
+{
+  "name": "dnd-tools",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
