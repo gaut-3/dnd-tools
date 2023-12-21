@@ -38,6 +38,9 @@ const App: React.FC = () => {
             <Route path="/folder/:name" exact={true}>
               <Page />
             </Route>
+            <Route path="/folder/:name" exact={true}>
+              <Page />
+            </Route>
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>
