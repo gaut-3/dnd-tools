@@ -22,6 +22,9 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import EncounterList from "./pages/encounter/EncounterList";
+import React from "react";
+import Encounter from "./pages/encounter/Encounter";
 
 setupIonicReact();
 
@@ -40,6 +43,12 @@ const App: React.FC = () => {
             </Route>
             <Route path="/folder/:name" exact={true}>
               <Page />
+            </Route>
+            <Route path="/encounters" exact={true}>
+              <EncounterList />
+            </Route>
+            <Route path="/encounter/:id" exact={true}>
+              <Encounter />
             </Route>
           </IonRouterOutlet>
         </IonSplitPane>

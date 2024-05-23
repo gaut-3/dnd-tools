@@ -235,6 +235,11 @@ http://ionicframework.com/docs/theming/ */
   }
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
 html {
   /* For more information on dynamic font scaling, visit the documentation: 
   https://ionicframework.com/docs/layout/dynamic-font-scaling */

@@ -1,0 +1,13 @@
+.text-field {
+  --border-radius: 8px;
+  color: #666666;
+  --border-color: black;
+  border-color: black;
+
+
+  &.short-field {
+    width: 50px;
+    color:blue;
+  }
+
+}
